@@ -3,9 +3,17 @@
   <!-- Página Principal / Landing Page Institucional -->
   <url>
     <loc>https://projdet.com.br/</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
+  </url>
+
+  <!-- Política de Privacidade & Sigilo Industrial (Conformidade LGPD & Googlebot) -->
+  <url>
+    <loc>https://projdet.com.br/politica-de-privacidade</loc>
+    <lastmod>2026-10-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
   </url>
 </urlset>
 

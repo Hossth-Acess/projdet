@@ -10,10 +10,10 @@
  * - Paleta monocromática estrita: Preto, Branco e Cinza (Padrão ForgeX)
  */
 import React, { useState, useEffect } from 'react';
-import { 
-  ArrowUpRight, 
-  Play, 
-  X, 
+import {
+  ArrowUpRight,
+  Play,
+  X,
   Loader2,
   ChevronLeft,
   ChevronRight,
@@ -34,6 +34,8 @@ const MODAL_FADE_DURATION = '220ms';
 const MODAL_FADE_EASE = 'cubic-bezier(0.16, 1, 0.3, 1)';
 const CAROUSEL_SLIDE_DURATION = '200ms';
 const CAROUSEL_SLIDE_EASE = 'ease-in-out';
+const FILTER_TRANSITION_DURATION = '180ms'; // Velocidade da troca de abas de filtro
+const FILTER_TRANSITION_EASE = 'cubic-bezier(0.16, 1, 0.3, 1)'; // Curva ergonômica de aceleração suave
 
 /**
  * Mapeamento em português das categorias em inglês cadastradas na coluna 'category'
@@ -157,7 +159,8 @@ export default function SolutionsSection() {
 
   return (
     <section id="solucoes" style={{
-      backgroundColor: '#FFFFFF',
+      backgroundColor: 'var(--color-1)', // Cor 1: Preto Carbono Profundo (Zero Azul)
+      borderTop: '1px solid var(--color-3)', // Cor 3: Borda Técnica Usinada de 1px
       minHeight: 'calc(100vh - 73px)',
       paddingTop: 'var(--spacing-3xl)',
       paddingBottom: 'var(--spacing-4xl)',
@@ -167,6 +170,7 @@ export default function SolutionsSection() {
       justifyContent: 'space-between',
       boxSizing: 'border-box'
     }}>
+
       {/* Container Responsivo Centralizado com Limites de Margem Segura */}
       <div style={{
         width: '100%',
@@ -177,7 +181,7 @@ export default function SolutionsSection() {
         boxSizing: 'border-box'
       }}>
 
-        {/* 1. CABEÇALHO DIVIDIDO FORGEX */}
+        {/* 1. CABEÇALHO DIVIDIDO FORGEX (TEMA ESCURO INDUSTRIAL MONOCROMÁTICO) */}
         <div style={{
           display: 'grid',
           gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
@@ -189,7 +193,7 @@ export default function SolutionsSection() {
             <span style={{
               fontFamily: 'monospace',
               fontSize: '0.8rem',
-              color: '#64748B',
+              color: 'var(--color-4)', // Cor 4: Cinza Neutro de Leitura
               letterSpacing: '0.14em',
               fontWeight: 700,
               textTransform: 'uppercase',
@@ -202,7 +206,7 @@ export default function SolutionsSection() {
               fontSize: 'clamp(2rem, 3.5vw, 2.8rem)',
               lineHeight: 1.12,
               fontWeight: 800,
-              color: '#0F172A',
+              color: 'var(--color-6)', // Cor 6: Branco Puro
               letterSpacing: '-0.02em'
             }}>
               Soluções de Engenharia e Projetos Prontos para Fabricação.
@@ -213,7 +217,7 @@ export default function SolutionsSection() {
             <p style={{
               fontSize: '1rem',
               lineHeight: 1.6,
-              color: '#475569',
+              color: 'var(--color-4)', // Cor 4: Cinza Neutro
               maxWidth: '560px',
               marginBottom: 'var(--spacing-md)'
             }}>
@@ -228,8 +232,8 @@ export default function SolutionsSection() {
                 fontFamily: 'var(--font-heading)',
                 fontWeight: 700,
                 fontSize: '0.92rem',
-                color: '#0F172A',
-                borderBottom: '2px solid #0F172A',
+                color: 'var(--color-6)',
+                borderBottom: '2px solid var(--color-6)',
                 paddingBottom: '2px'
               }}
             >
@@ -239,53 +243,68 @@ export default function SolutionsSection() {
           </div>
         </div>
 
-        {/* 2. ABAS DE CATEGORIAS CENTRALIZADAS */}
+        {/* 2. ABAS DE CATEGORIAS: DROPDOWN INTUITIVO NO MOBILE E ABAS COMPLETAS NO DESKTOP */}
         {availableCategories.length > 1 && (
-          <div style={{
-            display: 'flex',
-            flexWrap: 'wrap',
-            justifyContent: 'center', // Centraliza as abas de categoria harmonicamente
-            gap: '8px',
-            marginBottom: 'var(--spacing-2xl)',
-            borderBottom: '1px solid #E2E8F0',
-            paddingBottom: 'var(--spacing-md)'
-          }}>
-            {availableCategories.map((catKey) => {
-              const isActive = activeCategory === catKey;
-              const label = catKey === 'all' ? 'Todos os Projetos' : (CATEGORY_LABELS[catKey] || catKey);
-              return (
-                <button
-                  key={catKey}
-                  type="button"
-                  onClick={() => setActiveCategory(catKey)}
-                  style={{
-                    padding: '8px 16px',
-                    borderRadius: 'var(--radius-sm)',
-                    border: isActive ? '1px solid #0F172A' : '1px solid #E2E8F0',
-                    backgroundColor: isActive ? '#0F172A' : '#FFFFFF',
-                    color: isActive ? '#FFFFFF' : '#475569',
-                    fontFamily: 'var(--font-heading)',
-                    fontSize: '0.85rem',
-                    fontWeight: 600,
-                    cursor: 'pointer',
-                    transition: `all ${CARD_TRANSITION_DURATION} ${CARD_TRANSITION_EASE}`
-                  }}
+          <div className="solutions-filter-wrapper">
+
+            {/* Visual Mobile (< 860px): Seletor Dropdown 100% Claro e Acessível */}
+            <div className="solutions-filter-mobile">
+              <label htmlFor="mobile-category-select" style={{ fontSize: '0.74rem', color: 'var(--color-4)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: '6px', display: 'block' }}>
+                Filtrar por Categoria:
+              </label>
+              <div style={{ position: 'relative', width: '100%' }}>
+                <select
+                  id="mobile-category-select"
+                  value={activeCategory}
+                  onChange={(e) => setActiveCategory(e.target.value)}
+                  className="solutions-mobile-select"
                 >
-                  {label}
-                </button>
-              );
-            })}
+                  {availableCategories.map((catKey) => {
+                    const label = catKey === 'all' ? 'Todos os Projetos' : (CATEGORY_LABELS[catKey] || catKey);
+                    const count = catKey === 'all' ? projects.length : projects.filter(p => p.category === catKey).length;
+                    return (
+                      <option key={catKey} value={catKey}>
+                        {label} ({count})
+                      </option>
+                    );
+                  })}
+                </select>
+                {/* Seta indicativa clara de seleção */}
+                <div style={{ position: 'absolute', right: '14px', top: '50%', transform: 'translateY(-50%)', pointerEvents: 'none', color: 'var(--color-4)', fontWeight: 800, fontSize: '0.82rem' }}>
+                  ▼
+                </div>
+              </div>
+            </div>
+
+            {/* Visual Desktop (≥ 860px): Abas Tradicionais Centralizadas */}
+            <div className="solutions-filter-desktop">
+              {availableCategories.map((catKey) => {
+                const isActive = activeCategory === catKey;
+                const label = catKey === 'all' ? 'Todos os Projetos' : (CATEGORY_LABELS[catKey] || catKey);
+                return (
+                  <button
+                    key={catKey}
+                    type="button"
+                    onClick={() => setActiveCategory(catKey)}
+                    className={`solutions-filter-pill ${isActive ? 'active' : ''}`}
+                  >
+                    {label}
+                  </button>
+                );
+              })}
+            </div>
+
           </div>
         )}
 
-        {/* 3. GRID DINÂMICO DOS PROJETOS (CENTRALIZADO E COM DIMENSÕES PADRÃO) */}
+        {/* 3. GRID DINÂMICO DOS PROJETOS (RESPONSIVO COM 1 COLUNA MOBILE E 2 COLUNAS TABLET) */}
         {loading ? (
           <div style={{
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             minHeight: '340px',
-            color: '#64748B',
+            color: 'var(--color-4)',
             gap: '12px'
           }}>
             <Loader2 size={26} className="spin-loader" />
@@ -295,35 +314,28 @@ export default function SolutionsSection() {
           <div style={{
             padding: '48px',
             textAlign: 'center',
-            color: '#64748B',
-            backgroundColor: '#F8FAFC',
+            color: 'var(--color-4)',
+            backgroundColor: 'var(--color-2)',
             borderRadius: 'var(--radius-card)',
-            border: '1px dashed #CBD5E1'
+            border: '1px dashed var(--color-3)'
           }}>
             Nenhum projeto encontrado nesta categoria.
           </div>
         ) : (
-          <div style={{
-            display: 'grid',
-            // Dimensões equilibradas e auto-fill com alinhamento rigorosamente centralizado
-            gridTemplateColumns: 'repeat(auto-fill, minmax(290px, 350px))',
-            gap: '24px',
-            marginBottom: 'var(--spacing-2xl)',
-            justifyContent: 'center' // Centraliza os cards no meio da tela
-          }}>
+          <div className="solutions-cards-grid">
             {displayedProjects.map((project) => (
               <div
                 key={project.id || project.slug}
                 className="forgex-solution-card"
                 style={{
-                  backgroundColor: '#FFFFFF',
+                  backgroundColor: 'var(--color-2)', // Cor 2: Preto Grafite Neutro
                   borderRadius: 'var(--radius-card)',
-                  border: '1px solid #E2E8F0',
+                  border: '1px solid var(--color-3)', // Cor 3: Borda Usinada
                   overflow: 'hidden',
                   display: 'flex',
                   flexDirection: 'column',
                   height: '100%',
-                  boxShadow: '0 4px 20px rgba(0, 0, 0, 0.04)',
+                  boxShadow: '0 8px 24px rgba(0, 0, 0, 0.4)',
                   transition: `transform ${CARD_TRANSITION_DURATION} ${CARD_TRANSITION_EASE}, box-shadow ${CARD_TRANSITION_DURATION} ${CARD_TRANSITION_EASE}, border-color ${CARD_TRANSITION_DURATION} ${CARD_TRANSITION_EASE}`
                 }}
               >
@@ -333,7 +345,8 @@ export default function SolutionsSection() {
                     height: '210px',
                     overflow: 'hidden',
                     position: 'relative',
-                    backgroundColor: '#0F172A',
+                    backgroundColor: 'var(--color-1)',
+                    borderBottom: '1px solid var(--color-3)',
                     cursor: 'pointer'
                   }}
                   onClick={() => handleOpenModal(project, 'gallery')}
@@ -356,11 +369,11 @@ export default function SolutionsSection() {
                     position: 'absolute',
                     top: '12px',
                     left: '12px',
-                    backgroundColor: 'rgba(9, 14, 23, 0.88)',
+                    backgroundColor: 'rgba(10, 10, 10, 0.90)',
                     border: '1px solid rgba(255, 255, 255, 0.25)',
                     borderRadius: 'var(--radius-sm)',
                     padding: '4px 10px',
-                    color: '#FFFFFF',
+                    color: 'var(--color-6)',
                     fontSize: '0.7rem',
                     fontFamily: 'monospace',
                     fontWeight: 700
@@ -384,10 +397,10 @@ export default function SolutionsSection() {
                         alignItems: 'center',
                         gap: '6px',
                         padding: '6px 12px',
-                        backgroundColor: 'rgba(9, 14, 23, 0.92)',
+                        backgroundColor: 'rgba(10, 10, 10, 0.92)',
                         border: '1px solid rgba(255, 255, 255, 0.4)',
                         borderRadius: 'var(--radius-sm)',
-                        color: '#FFFFFF',
+                        color: 'var(--color-6)',
                         fontSize: '0.74rem',
                         fontFamily: 'var(--font-heading)',
                         fontWeight: 600,
@@ -396,7 +409,7 @@ export default function SolutionsSection() {
                       title="Assistir Simulação Mecânica 3D"
                       aria-label={`Ver simulação 3D de ${project.title}`}
                     >
-                      <Play size={13} fill="#FFFFFF" />
+                      <Play size={13} fill="var(--color-6)" />
                       <span>Simulação 3D</span>
                     </button>
                   )}
@@ -414,7 +427,7 @@ export default function SolutionsSection() {
                     <h3 style={{
                       fontSize: '1.2rem',
                       fontWeight: 800,
-                      color: '#0F172A',
+                      color: 'var(--color-6)', // Título em Cor 6 (Branco Puro)
                       marginBottom: '8px',
                       lineHeight: 1.3,
                       display: '-webkit-box',
@@ -427,7 +440,7 @@ export default function SolutionsSection() {
                     </h3>
                     <p style={{
                       fontSize: '0.86rem',
-                      color: '#475569',
+                      color: 'var(--color-4)', // Descrição em Cor 4 (Cinza Leitura)
                       lineHeight: 1.55,
                       marginBottom: '16px',
                       display: '-webkit-box',
@@ -440,9 +453,9 @@ export default function SolutionsSection() {
                     </p>
                   </div>
 
-                  {/* 3. AÇÃO PARA MODAL DE DETALHAMENTO & GALERIA (SEM TAGS POLUINDO O CARD) */}
+                  {/* 3. AÇÃO PARA MODAL DE DETALHAMENTO & GALERIA */}
                   <div style={{
-                    borderTop: '1px solid #F1F5F9',
+                    borderTop: '1px solid var(--color-3)',
                     paddingTop: '14px',
                     display: 'flex',
                     justifyContent: 'space-between',
@@ -458,7 +471,7 @@ export default function SolutionsSection() {
                         padding: 0,
                         cursor: 'pointer',
                         fontSize: '0.82rem',
-                        color: '#0F172A',
+                        color: 'var(--color-6)',
                         fontWeight: 700,
                         fontFamily: 'var(--font-heading)'
                       }}
@@ -474,12 +487,12 @@ export default function SolutionsSection() {
                         width: '42px',
                         height: '42px',
                         borderRadius: '50%',
-                        backgroundColor: '#F8FAFC',
-                        border: '1px solid #E2E8F0',
+                        backgroundColor: 'var(--color-2)',
+                        border: '1px solid var(--color-3)',
                         display: 'inline-flex',
                         alignItems: 'center',
                         justifyContent: 'center',
-                        color: '#0F172A',
+                        color: 'var(--color-6)',
                         cursor: 'pointer',
                         transition: `all ${CARD_TRANSITION_DURATION} ${CARD_TRANSITION_EASE}`
                       }}
@@ -510,7 +523,7 @@ export default function SolutionsSection() {
             style={{
               position: 'fixed',
               inset: 0,
-              backgroundColor: 'rgba(9, 14, 23, 0.92)',
+              backgroundColor: 'rgba(0, 0, 0, 0.85)', // Fundo escurecido neutro sem tom azul
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
@@ -523,8 +536,8 @@ export default function SolutionsSection() {
             <div
               onClick={(e) => e.stopPropagation()}
               style={{
-                backgroundColor: '#090E17',
-                border: '1px solid #1E293B',
+                backgroundColor: 'var(--color-1)', // Cor 1: Preto Carbono Profundo (#0A0A0A)
+                border: '1px solid var(--color-3)', // Cor 3: Cinza Neutro de Precisão (#262626)
                 borderRadius: 'var(--radius-card)',
                 width: '100%',
                 maxWidth: '920px',
@@ -541,15 +554,15 @@ export default function SolutionsSection() {
                 justifyContent: 'space-between',
                 alignItems: 'center',
                 padding: '16px 20px',
-                borderBottom: '1px solid #1E293B',
+                borderBottom: '1px solid var(--color-3)', // Cor 3: Borda usinada neutra
                 gap: '12px',
                 flexWrap: 'wrap'
               }}>
                 <div>
-                  <span style={{ fontSize: '0.72rem', color: '#94A3B8', fontFamily: 'monospace', fontWeight: 700, textTransform: 'uppercase' }}>
+                  <span style={{ fontSize: '0.72rem', color: 'var(--color-5)', fontFamily: 'monospace', fontWeight: 700, textTransform: 'uppercase' }}>
                     {CATEGORY_LABELS[modalProject.category] || modalProject.category}
                   </span>
-                  <h4 style={{ color: '#FFFFFF', fontSize: '1.25rem', fontWeight: 800, margin: '2px 0 0 0' }}>
+                  <h4 style={{ color: 'var(--color-6)', fontSize: '1.25rem', fontWeight: 800, margin: '2px 0 0 0' }}>
                     {modalProject.title}
                   </h4>
                 </div>
@@ -563,9 +576,9 @@ export default function SolutionsSection() {
                       style={{
                         padding: '6px 12px',
                         borderRadius: 'var(--radius-sm)',
-                        border: modalMediaTab === 'gallery' ? '1px solid #FFFFFF' : '1px solid #1E293B',
-                        backgroundColor: modalMediaTab === 'gallery' ? '#FFFFFF' : '#0F172A',
-                        color: modalMediaTab === 'gallery' ? '#090E17' : '#94A3B8',
+                        border: modalMediaTab === 'gallery' ? '1px solid var(--color-6)' : '1px solid var(--color-3)',
+                        backgroundColor: modalMediaTab === 'gallery' ? 'var(--color-6)' : 'var(--color-2)',
+                        color: modalMediaTab === 'gallery' ? 'var(--color-1)' : 'var(--color-4)',
                         fontSize: '0.78rem',
                         fontWeight: 700,
                         display: 'inline-flex',
@@ -586,9 +599,9 @@ export default function SolutionsSection() {
                       style={{
                         padding: '6px 12px',
                         borderRadius: 'var(--radius-sm)',
-                        border: modalMediaTab === 'video' ? '1px solid #FFFFFF' : '1px solid #1E293B',
-                        backgroundColor: modalMediaTab === 'video' ? '#FFFFFF' : '#0F172A',
-                        color: modalMediaTab === 'video' ? '#090E17' : '#94A3B8',
+                        border: modalMediaTab === 'video' ? '1px solid var(--color-6)' : '1px solid var(--color-3)',
+                        backgroundColor: modalMediaTab === 'video' ? 'var(--color-6)' : 'var(--color-2)',
+                        color: modalMediaTab === 'video' ? 'var(--color-1)' : 'var(--color-4)',
                         fontSize: '0.78rem',
                         fontWeight: 700,
                         display: 'inline-flex',
@@ -608,7 +621,7 @@ export default function SolutionsSection() {
                     style={{
                       background: 'transparent',
                       border: 'none',
-                      color: '#94A3B8',
+                      color: 'var(--color-4)',
                       cursor: 'pointer',
                       padding: '4px',
                       display: 'flex',
@@ -625,9 +638,9 @@ export default function SolutionsSection() {
               <div style={{ overflowY: 'auto', flex: 1 }}>
                 {modalMediaTab === 'video' && hasVideo ? (
                   // Player Turbo da Simulação 3D com Pré-carregamento e Capa Instantânea
-                  <div style={{ position: 'relative', paddingTop: '56.25%', backgroundColor: '#05080E', overflow: 'hidden' }}>
+                  <div style={{ position: 'relative', paddingTop: '56.25%', backgroundColor: 'var(--color-1)', overflow: 'hidden' }}>
                     {/* Capa Instantânea em Alta Resolução (exibida em 0ms enquanto o player conecta) */}
-                    <img 
+                    <img
                       src={`https://i.ytimg.com/vi/${modalProject.youtube_video_id}/hqdefault.jpg`}
                       alt="Prévia da Simulação"
                       style={{
@@ -652,9 +665,9 @@ export default function SolutionsSection() {
                         alignItems: 'center',
                         justifyContent: 'center',
                         gap: '12px',
-                        color: '#FFFFFF',
+                        color: 'var(--color-6)',
                         zIndex: 2,
-                        backgroundColor: 'rgba(5, 8, 14, 0.45)'
+                        backgroundColor: 'rgba(0, 0, 0, 0.55)'
                       }}>
                         <Loader2 size={30} className="spin-loader" />
                         <span style={{ fontSize: '0.84rem', fontWeight: 600, fontFamily: 'var(--font-heading)', letterSpacing: '0.04em' }}>
@@ -666,12 +679,12 @@ export default function SolutionsSection() {
                     {/* Iframe com Prioridade Eager e Parâmetros de Redução de Latência */}
                     <iframe
                       src={`https://www.youtube.com/embed/${modalProject.youtube_video_id}?autoplay=1&rel=0&playsinline=1&modestbranding=1&iv_load_policy=3&enablejsapi=1`}
-                      style={{ 
-                        position: 'absolute', 
-                        top: 0, 
-                        left: 0, 
-                        width: '100%', 
-                        height: '100%', 
+                      style={{
+                        position: 'absolute',
+                        top: 0,
+                        left: 0,
+                        width: '100%',
+                        height: '100%',
                         border: 'none',
                         zIndex: isVideoLoading ? 1 : 3
                       }}
@@ -684,7 +697,7 @@ export default function SolutionsSection() {
                   </div>
                 ) : (
                   // Carrossel Interativo de Fotos
-                  <div style={{ display: 'flex', flexDirection: 'column', backgroundColor: '#05080E' }}>
+                  <div style={{ display: 'flex', flexDirection: 'column', backgroundColor: 'var(--color-1)' }}>
                     {/* Imagem Principal do Carrossel */}
                     <div style={{
                       position: 'relative',
@@ -711,14 +724,14 @@ export default function SolutionsSection() {
                           position: 'absolute',
                           bottom: '12px',
                           right: '12px',
-                          backgroundColor: 'rgba(9, 14, 23, 0.85)',
-                          color: '#FFFFFF',
+                          backgroundColor: 'rgba(10, 10, 10, 0.85)',
+                          color: 'var(--color-6)',
                           padding: '4px 10px',
                           borderRadius: 'var(--radius-sm)',
                           fontSize: '0.74rem',
                           fontFamily: 'monospace',
                           fontWeight: 700,
-                          border: '1px solid rgba(255, 255, 255, 0.2)'
+                          border: '1px solid var(--color-3)'
                         }}>
                           {activeImageIndex + 1} / {allImages.length}
                         </div>
@@ -734,9 +747,9 @@ export default function SolutionsSection() {
                             left: '12px',
                             top: '50%',
                             transform: 'translateY(-50%)',
-                            backgroundColor: 'rgba(9, 14, 23, 0.8)',
-                            color: '#FFFFFF',
-                            border: '1px solid rgba(255, 255, 255, 0.25)',
+                            backgroundColor: 'rgba(10, 10, 10, 0.8)',
+                            color: 'var(--color-6)',
+                            border: '1px solid var(--color-3)',
                             borderRadius: '50%',
                             width: '40px',
                             height: '40px',
@@ -761,9 +774,9 @@ export default function SolutionsSection() {
                             right: '12px',
                             top: '50%',
                             transform: 'translateY(-50%)',
-                            backgroundColor: 'rgba(9, 14, 23, 0.8)',
-                            color: '#FFFFFF',
-                            border: '1px solid rgba(255, 255, 255, 0.25)',
+                            backgroundColor: 'rgba(10, 10, 10, 0.8)',
+                            color: 'var(--color-6)',
+                            border: '1px solid var(--color-3)',
                             borderRadius: '50%',
                             width: '40px',
                             height: '40px',
@@ -785,8 +798,8 @@ export default function SolutionsSection() {
                         display: 'flex',
                         gap: '8px',
                         padding: '12px 16px',
-                        backgroundColor: '#090E17',
-                        borderTop: '1px solid #1E293B',
+                        backgroundColor: 'var(--color-2)', // Cor 2: Preto Grafite
+                        borderTop: '1px solid var(--color-3)', // Cor 3: Divisória Usinada
                         overflowX: 'auto'
                       }}>
                         {allImages.map((imgUrl, idx) => (
@@ -801,9 +814,9 @@ export default function SolutionsSection() {
                               overflow: 'hidden',
                               padding: 0,
                               cursor: 'pointer',
-                              border: activeImageIndex === idx ? '2px solid #FFFFFF' : '1px solid #1E293B',
+                              border: activeImageIndex === idx ? '2px solid var(--color-6)' : '1px solid var(--color-3)',
                               opacity: activeImageIndex === idx ? 1 : 0.6,
-                              backgroundColor: '#000000',
+                              backgroundColor: 'var(--color-1)',
                               flexShrink: 0,
                               transition: `all ${CAROUSEL_SLIDE_DURATION} ${CAROUSEL_SLIDE_EASE}`
                             }}
@@ -817,12 +830,12 @@ export default function SolutionsSection() {
                 )}
 
                 {/* Detalhamento e Ação WhatsApp */}
-                <div style={{ padding: '20px', borderTop: '1px solid #1E293B', display: 'flex', flexDirection: 'column', gap: '14px' }}>
+                <div style={{ padding: '20px', borderTop: '1px solid var(--color-3)', display: 'flex', flexDirection: 'column', gap: '14px' }}>
                   <div>
-                    <h5 style={{ color: '#94A3B8', fontSize: '0.8rem', fontFamily: 'monospace', textTransform: 'uppercase', marginBottom: '6px' }}>
+                    <h5 style={{ color: 'var(--color-5)', fontSize: '0.8rem', fontFamily: 'monospace', textTransform: 'uppercase', marginBottom: '6px' }}>
                       Memorial Descritivo & Aplicação
                     </h5>
-                    <p style={{ color: '#E2E8F0', fontSize: '0.92rem', lineHeight: 1.6, margin: 0, whiteSpace: 'pre-line' }}>
+                    <p style={{ color: 'var(--color-4)', fontSize: '0.92rem', lineHeight: 1.6, margin: 0, whiteSpace: 'pre-line' }}>
                       {modalProject.description || 'Nenhuma descrição técnica detalhada informada.'}
                     </p>
                   </div>
@@ -837,8 +850,8 @@ export default function SolutionsSection() {
                         alignItems: 'center',
                         gap: '8px',
                         padding: '10px 20px',
-                        backgroundColor: '#FFFFFF',
-                        color: '#090E17',
+                        backgroundColor: 'var(--color-6)',
+                        color: 'var(--color-1)',
                         borderRadius: 'var(--radius-sm)',
                         fontFamily: 'var(--font-heading)',
                         fontWeight: 700,
@@ -858,6 +871,106 @@ export default function SolutionsSection() {
       })()}
 
       <style>{`
+        /* Controle Responsivo do Filtro de Projetos */
+        .solutions-filter-wrapper {
+          width: 100%;
+          margin-bottom: var(--spacing-xl);
+          border-bottom: 1px solid var(--color-3); /* Cor 3: Divisória Técnica Neutra */
+          padding-bottom: 16px;
+        }
+
+        .solutions-filter-mobile {
+          display: block;
+          width: 100%;
+        }
+
+        .solutions-mobile-select {
+          width: 100%;
+          min-height: 48px; /* Touch target acessível (WCAG 44px baseline) */
+          padding: 10px 42px 10px 14px;
+          border-radius: var(--radius-sm);
+          border: 1.5px solid var(--color-3); /* Cor 3: Borda usinada */
+          background-color: var(--color-2); /* Cor 2: Superfície escura neutra */
+          color: var(--color-6); /* Cor 6: Branco Puro */
+          font-family: var(--font-heading);
+          font-size: 0.92rem;
+          font-weight: 700;
+          outline: none;
+          appearance: none;
+          -webkit-appearance: none;
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+          cursor: pointer;
+        }
+
+        .solutions-mobile-select:focus {
+          border-color: var(--color-6);
+        }
+
+        .solutions-filter-desktop {
+          display: none;
+          gap: 8px;
+          justify-content: center;
+          flex-wrap: wrap;
+        }
+
+        .solutions-filter-pill {
+          min-height: 40px;
+          padding: 8px 18px;
+          border-radius: var(--radius-sm);
+          border: 1px solid var(--color-3); /* Cor 3: Cinza Neutro de Precisão */
+          background-color: var(--color-2); /* Cor 2: Preto Grafite Usinado */
+          color: var(--color-4); /* Cor 4: Cinza Neutro de Leitura */
+          font-family: var(--font-heading);
+          font-size: 0.85rem;
+          font-weight: 600;
+          cursor: pointer;
+          transition: all ${FILTER_TRANSITION_DURATION} ${FILTER_TRANSITION_EASE};
+        }
+
+        .solutions-filter-pill:hover {
+          border-color: #404040;
+          background-color: var(--color-3); /* Cor 3 */
+          color: var(--color-6); /* Cor 6 */
+        }
+
+        .solutions-filter-pill.active {
+          border-color: var(--color-6); /* Cor 6 */
+          background-color: var(--color-6); /* Cor 6 */
+          color: var(--color-1); /* Cor 1: Alto contraste legível */
+          font-weight: 700;
+        }
+
+        @media (min-width: 860px) {
+          .solutions-filter-mobile {
+            display: none !important;
+          }
+          .solutions-filter-desktop {
+            display: flex !important;
+          }
+        }
+
+        /* Grid Responsivo Calibrado: 1 coluna no Mobile (<600px), 2 colunas no Tablet (600px-979px) e auto-fill no Desktop */
+        .solutions-cards-grid {
+          display: grid;
+          grid-template-columns: 1fr;
+          gap: 20px;
+          margin-bottom: var(--spacing-2xl);
+          justify-content: center;
+        }
+
+        @media (min-width: 600px) {
+          .solutions-cards-grid {
+            grid-template-columns: repeat(2, minmax(280px, 1fr));
+            gap: 24px;
+          }
+        }
+
+        @media (min-width: 980px) {
+          .solutions-cards-grid {
+            grid-template-columns: repeat(auto-fill, minmax(290px, 350px));
+          }
+        }
+
         .spin-loader {
           animation: spin 1s linear infinite;
         }
@@ -867,16 +980,16 @@ export default function SolutionsSection() {
         }
         .forgex-solution-card:hover {
           transform: translateY(-4px);
-          box-shadow: 0 16px 36px rgba(0, 0, 0, 0.08);
-          border-color: #CBD5E1;
+          box-shadow: 0 16px 36px rgba(0, 0, 0, 0.6);
+          border-color: #404040;
         }
         .forgex-solution-card:hover .card-project-img {
           transform: scale(1.05);
         }
         .forgex-solution-card:hover .solution-arrow-btn {
-          background-color: #0F172A !important;
-          border-color: #0F172A !important;
-          color: #FFFFFF !important;
+          background-color: var(--color-6) !important;
+          border-color: var(--color-6) !important;
+          color: var(--color-1) !important;
           transform: translateY(-2px);
         }
       `}</style>

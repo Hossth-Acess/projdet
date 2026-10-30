@@ -180,44 +180,27 @@ export default function ContactSection() {
     <section
       id="contato"
       style={{
-        backgroundColor: '#FFFFFF',
+        backgroundColor: 'var(--color-3)', //fundo
+        borderTop: '1px solid var(--color-3)', //borda
         paddingTop: 'var(--spacing-3xl)',
         paddingBottom: 'var(--spacing-4xl)',
         width: '100%',
         display: 'flex',
-        justifyContent: 'center',
-        boxSizing: 'border-box'
+        flexDirection: 'column',
+        alignItems: 'center',
       }}
     >
-      {/* Container Centralizado com Limite Seguro */}
-      <div
-        style={{
-          width: '100%',
-          maxWidth: '1600px',
-          margin: '0 auto',
-          paddingLeft: 'clamp(16px, 2.5vw, 36px)',
-          paddingRight: 'clamp(16px, 2.5vw, 36px)',
-          boxSizing: 'border-box'
-        }}
-      >
-        {/* CARD PRINCIPAL ESCURO FORGEX (IDÊNTICO À REFERÊNCIA VISUAL) */}
-        <div
-          style={{
-            position: 'relative',
-            backgroundColor: '#090E17',
-            borderRadius: 'var(--radius-hero)',
-            border: '1px solid #1E293B',
-            boxShadow: '0 25px 60px rgba(0, 0, 0, 0.2)',
-            overflow: 'hidden',
-            padding: 'clamp(28px, 4vw, 56px)'
-          }}
-        >
-          {/* Fundo com textura industrial sutil e gradiente de profundidade */}
+
+      {/* Container Centralizado com Margem Segura Responsiva */}
+      <div className="contact-container">
+        {/* CARD PRINCIPAL ESCURO FORGEX (CALIBRADO PARA ZERO DISTORÇÃO EM TELAS ESTREITAS) */}
+        <div className="contact-card-box">
+          {/* Fundo com textura industrial sutil e gradiente neutro monocromático */}
           <div
             style={{
               position: 'absolute',
               inset: 0,
-              background: 'radial-gradient(circle at 85% 15%, rgba(0, 102, 255, 0.08) 0%, transparent 60%), linear-gradient(180deg, rgba(15, 23, 42, 0.4) 0%, rgba(9, 14, 23, 0.95) 100%)',
+              background: 'radial-gradient(circle at 85% 15%, rgba(255, 255, 255, 0.04) 0%, transparent 60%), linear-gradient(180deg, rgba(20, 20, 20, 0.4) 0%, rgba(10, 10, 10, 0.95) 100%)',
               pointerEvents: 'none',
               zIndex: 0
             }}
@@ -225,26 +208,16 @@ export default function ContactSection() {
 
           <div style={{ position: 'relative', zIndex: 1 }}>
 
-            {/* 1. CABEÇALHO DO BLOCO CTA (PADRÃO FORGEX) */}
-            <div
-              style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-                gap: 'clamp(20px, 3vw, 48px)',
-                alignItems: 'center',
-                borderBottom: '1px solid rgba(255, 255, 255, 0.12)',
-                paddingBottom: 'clamp(24px, 3vh, 36px)',
-                marginBottom: 'clamp(28px, 3.5vh, 44px)'
-              }}
-            >
+            {/* 1. CABEÇALHO DO BLOCO CTA (MOBILE-FIRST FLEXÍVEL) */}
+            <div className="contact-header-layout">
               {/* Lado Esquerdo: Chamada Forte */}
               <div>
                 <span
                   style={{
                     fontFamily: 'monospace',
-                    fontSize: '0.78rem',
-                    color: '#94A3B8',
-                    letterSpacing: '0.14em',
+                    fontSize: '0.76rem',
+                    color: 'var(--color-5)', // Cor 5: Cinza Metálico Técnico
+                    letterSpacing: '0.12em',
                     fontWeight: 700,
                     textTransform: 'uppercase',
                     display: 'block',
@@ -253,46 +226,24 @@ export default function ContactSection() {
                 >
                   ENGENHARIA SOB DEMANDA • CONTATO DIRETO
                 </span>
-                <h2
-                  style={{
-                    fontSize: 'clamp(1.9rem, 3.2vw, 2.75rem)',
-                    lineHeight: 1.12,
-                    fontWeight: 800,
-                    color: '#FFFFFF',
-                    letterSpacing: '-0.02em'
-                  }}
-                >
+                <h2 className="contact-heading-title">
                   Tem um Desafio de Engenharia? <br />
-                  Vamos Desenvolver a <span style={{ color: '#0066FF' }}>Solução.</span>
+                  Vamos Desenvolver a <span style={{ color: 'var(--color-6)', textDecoration: 'underline', textUnderlineOffset: '6px', textDecorationColor: 'var(--color-5)' }}>Solução.</span>
                 </h2>
               </div>
 
               {/* Lado Direito: Parágrafo Técnico */}
               <div>
-                <p
-                  style={{
-                    fontSize: '1rem',
-                    lineHeight: 1.6,
-                    color: '#CBD5E1',
-                    maxWidth: '540px'
-                  }}
-                >
+                <p className="contact-subtitle-desc">
                   Diga-nos o que você precisa fabricar ou calcular. Nossa equipe técnica (formada na <strong>UNESP</strong> e <strong>USP</strong>) transformará suas especificações em modelos CAD 3D executivos prontos para chão de fábrica.
                 </p>
               </div>
             </div>
 
-            {/* 2. ÁREA DE INTERAÇÃO DIVIDIDA: DADOS TÉCNICOS & FORMULÁRIO B2B */}
-            <div
-              style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-                gap: 'clamp(24px, 3vw, 48px)',
-                alignItems: 'start'
-              }}
-            >
+            {/* 2. ÁREA DE INTERAÇÃO: DADOS TÉCNICOS & FORMULÁRIO B2B (RESPONSIVO SEM QUEBRAS) */}
+            <div className="contact-content-grid">
               {/* COLUNA ESQUERDA: CANAIS DIRETOS & GARANTIAS TÉCNICAS */}
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-lg)' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-md)' }}>
 
                 {/* Card WhatsApp de Engenharia Rápida */}
                 <a
@@ -300,123 +251,105 @@ export default function ContactSection() {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="contact-channel-card"
-                  style={{
-                    backgroundColor: 'rgba(255, 255, 255, 0.03)',
-                    border: '1px solid rgba(255, 255, 255, 0.15)',
-                    borderRadius: 'var(--radius-card)',
-                    padding: '20px 24px',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                    transition: `transform ${CONTACT_TRANSITION_DURATION} ${CONTACT_TRANSITION_EASE}, border-color ${CONTACT_TRANSITION_DURATION} ${CONTACT_TRANSITION_EASE}, background-color ${CONTACT_TRANSITION_DURATION} ${CONTACT_TRANSITION_EASE}`
-                  }}
                 >
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '14px', minWidth: 0 }}>
                     <div
                       style={{
-                        width: '46px',
-                        height: '46px',
+                        width: '42px',
+                        height: '42px',
                         borderRadius: 'var(--radius-sm)',
-                        backgroundColor: 'rgba(0, 102, 255, 0.15)',
-                        border: '1px solid rgba(0, 102, 255, 0.4)',
+                        backgroundColor: 'rgba(255, 255, 255, 0.08)',
+                        border: '1px solid var(--color-3)',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
-                        color: '#38BDF8'
+                        color: 'var(--color-6)',
+                        flexShrink: 0
                       }}
                     >
-                      <MessageSquare size={22} />
+                      <MessageSquare size={20} />
                     </div>
-                    <div>
-                      <span style={{ fontSize: '0.72rem', color: '#94A3B8', fontFamily: 'monospace', textTransform: 'uppercase' }}>
+                    <div style={{ minWidth: 0 }}>
+                      <span style={{ fontSize: '0.70rem', color: 'var(--color-5)', fontFamily: 'monospace', textTransform: 'uppercase', display: 'block' }}>
                         ATENDIMENTO IMEDIATO
                       </span>
-                      <h4 style={{ color: '#FFFFFF', fontSize: '1.05rem', fontWeight: 700 }}>
+                      <h4 style={{ color: 'var(--color-6)', fontSize: '1rem', fontWeight: 700, margin: '1px 0' }}>
                         WhatsApp Engenharia
                       </h4>
-                      <p style={{ color: '#94A3B8', fontSize: '0.85rem' }}>
+                      <p style={{ color: 'var(--color-4)', fontSize: '0.82rem', margin: 0 }}>
                         +55 (19) 99597-7417
                       </p>
                     </div>
                   </div>
-                  <ArrowUpRight size={20} color="#CBD5E1" />
+                  <ArrowUpRight size={18} color="var(--color-4)" style={{ flexShrink: 0 }} />
                 </a>
 
                 {/* Card E-mail Técnico de Projetos */}
                 <a
                   href="mailto:contato@projdet.com.br?subject=Solicita%C3%A7%C3%A3o%20de%20Projeto%20T%C3%A9cnico%20PROJDET"
                   className="contact-channel-card"
-                  style={{
-                    backgroundColor: 'rgba(255, 255, 255, 0.03)',
-                    border: '1px solid rgba(255, 255, 255, 0.15)',
-                    borderRadius: 'var(--radius-card)',
-                    padding: '20px 24px',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                    transition: `transform ${CONTACT_TRANSITION_DURATION} ${CONTACT_TRANSITION_EASE}, border-color ${CONTACT_TRANSITION_DURATION} ${CONTACT_TRANSITION_EASE}, background-color ${CONTACT_TRANSITION_DURATION} ${CONTACT_TRANSITION_EASE}`
-                  }}
                 >
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '14px', minWidth: 0 }}>
                     <div
                       style={{
-                        width: '46px',
-                        height: '46px',
+                        width: '42px',
+                        height: '42px',
                         borderRadius: 'var(--radius-sm)',
                         backgroundColor: 'rgba(255, 255, 255, 0.08)',
-                        border: '1px solid rgba(255, 255, 255, 0.2)',
+                        border: '1px solid var(--color-3)',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
-                        color: '#FFFFFF'
+                        color: 'var(--color-6)',
+                        flexShrink: 0
                       }}
                     >
-                      <Mail size={22} />
+                      <Mail size={20} />
                     </div>
-                    <div>
-                      <span style={{ fontSize: '0.72rem', color: '#94A3B8', fontFamily: 'monospace', textTransform: 'uppercase' }}>
+                    <div style={{ minWidth: 0 }}>
+                      <span style={{ fontSize: '0.70rem', color: 'var(--color-5)', fontFamily: 'monospace', textTransform: 'uppercase', display: 'block' }}>
                         ENVIO DE MEMORIAIS & DESENHOS
                       </span>
-                      <h4 style={{ color: '#FFFFFF', fontSize: '1.05rem', fontWeight: 700 }}>
+                      <h4 style={{ color: 'var(--color-6)', fontSize: '1rem', fontWeight: 700, margin: '1px 0' }}>
                         E-mail de Projetos
                       </h4>
-                      <p style={{ color: '#94A3B8', fontSize: '0.85rem' }}>
+                      <p style={{ color: 'var(--color-4)', fontSize: '0.82rem', margin: 0, wordBreak: 'break-all' }}>
                         contato@projdet.com.br
                       </p>
                     </div>
                   </div>
-                  <ArrowUpRight size={20} color="#CBD5E1" />
+                  <ArrowUpRight size={18} color="var(--color-4)" style={{ flexShrink: 0 }} />
                 </a>
 
                 {/* Bloco de Informações Corporativas e Sigilo Técnico */}
                 <div
                   style={{
-                    padding: '20px',
+                    padding: '16px 18px',
                     backgroundColor: 'rgba(255, 255, 255, 0.02)',
                     border: '1px solid rgba(255, 255, 255, 0.08)',
                     borderRadius: 'var(--radius-card)',
                     display: 'flex',
                     flexDirection: 'column',
-                    gap: '12px'
+                    gap: '10px'
                   }}
                 >
                   <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                    <MapPin size={18} color="#38BDF8" />
-                    <span style={{ color: '#E2E8F0', fontSize: '0.88rem' }}>
+                    <MapPin size={17} color="var(--color-4)" style={{ flexShrink: 0 }} />
+                    <span style={{ color: 'var(--color-4)', fontSize: '0.85rem' }}>
                       Piracicaba - SP
                     </span>
                   </div>
 
                   <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                    <Clock size={18} color="#94A3B8" />
-                    <span style={{ color: '#94A3B8', fontSize: '0.85rem' }}>
+                    <Clock size={17} color="var(--color-5)" style={{ flexShrink: 0 }} />
+                    <span style={{ color: 'var(--color-5)', fontSize: '0.82rem' }}>
                       Segunda a Sexta: 07h30 às 17h30
                     </span>
                   </div>
 
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginTop: '4px' }}>
-                    <ShieldCheck size={18} color="#10B981" />
-                    <span style={{ color: '#CBD5E1', fontSize: '0.82rem' }}>
+                  <div style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', marginTop: '2px' }}>
+                    <ShieldCheck size={17} color="#10B981" style={{ flexShrink: 0, marginTop: '2px' }} />
+                    <span style={{ color: 'var(--color-4)', fontSize: '0.80rem', lineHeight: 1.45 }}>
                       Garantia de Acordo de Confidencialidade (NDA) para patentes e projetos proprietários.
                     </span>
                   </div>
@@ -427,17 +360,18 @@ export default function ContactSection() {
               {/* COLUNA DIREITA: FORMULÁRIO B2B DIRETO E LIMPO */}
               <div
                 style={{
-                  backgroundColor: 'rgba(255, 255, 255, 0.04)',
-                  border: '1px solid rgba(255, 255, 255, 0.15)',
+                  backgroundColor: 'rgba(255, 255, 255, 0.03)',
+                  border: '1px solid var(--color-3)',
                   borderRadius: 'var(--radius-card)',
-                  padding: 'clamp(20px, 2.5vw, 32px)'
+                  padding: 'clamp(16px, 3vw, 32px)',
+                  boxSizing: 'border-box'
                 }}
               >
                 <div style={{ marginBottom: 'var(--spacing-md)' }}>
-                  <h3 style={{ color: '#FFFFFF', fontSize: '1.25rem', fontWeight: 700, marginBottom: '4px' }}>
+                  <h3 style={{ color: 'var(--color-6)', fontSize: '1.2rem', fontWeight: 700, marginBottom: '4px' }}>
                     Solicitar Estudo de Viabilidade
                   </h3>
-                  <p style={{ color: '#94A3B8', fontSize: '0.85rem' }}>
+                  <p style={{ color: 'var(--color-4)', fontSize: '0.84rem' }}>
                     Preencha os dados abaixo para receber uma estimativa técnica preliminar.
                   </p>
                 </div>
@@ -446,8 +380,8 @@ export default function ContactSection() {
                   <div
                     style={{
                       padding: '24px',
-                      backgroundColor: 'rgba(16, 185, 129, 0.12)',
-                      border: '1px solid rgba(16, 185, 129, 0.3)',
+                      backgroundColor: 'rgba(78, 78, 69, 0.07)',
+                      border: '1px solid rgba(56, 66, 63, 0.2)',
                       borderRadius: 'var(--radius-sm)',
                       textAlign: 'center',
                       color: '#FFFFFF'
@@ -478,12 +412,12 @@ export default function ContactSection() {
                   </div>
                 ) : (
                   <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
-                    {/* Linha Dupla: Nome & Empresa */}
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '12px' }}>
+                    {/* Linha 1: Nome & Empresa (Fluido: 1 coluna no mobile, 2 no desktop) */}
+                    <div className="contact-form-row">
                       <div>
                         <label
                           htmlFor="name"
-                          style={{ display: 'block', color: '#CBD5E1', fontSize: '0.78rem', fontWeight: 600, marginBottom: '4px' }}
+                          style={{ display: 'block', color: 'var(--color-4)', fontSize: '0.78rem', fontWeight: 600, marginBottom: '4px' }}
                         >
                           Nome Completo *
                         </label>
@@ -503,7 +437,7 @@ export default function ContactSection() {
                       <div>
                         <label
                           htmlFor="company"
-                          style={{ display: 'block', color: '#CBD5E1', fontSize: '0.78rem', fontWeight: 600, marginBottom: '4px' }}
+                          style={{ display: 'block', color: 'var(--color-4)', fontSize: '0.78rem', fontWeight: 600, marginBottom: '4px' }}
                         >
                           Empresa / Indústria
                         </label>
@@ -520,12 +454,12 @@ export default function ContactSection() {
                       </div>
                     </div>
 
-                    {/* Linha Dupla: Telefone / WhatsApp & Segmento (Bug de Binding Corrigido) */}
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '12px' }}>
+                    {/* Linha 2: Telefone & Segmento */}
+                    <div className="contact-form-row">
                       <div>
                         <label
                           htmlFor="phone"
-                          style={{ display: 'block', color: '#CBD5E1', fontSize: '0.78rem', fontWeight: 600, marginBottom: '4px' }}
+                          style={{ display: 'block', color: 'var(--color-4)', fontSize: '0.78rem', fontWeight: 600, marginBottom: '4px' }}
                         >
                           WhatsApp com DDD *
                         </label>
@@ -545,7 +479,7 @@ export default function ContactSection() {
                       <div>
                         <label
                           htmlFor="projectType"
-                          style={{ display: 'block', color: '#CBD5E1', fontSize: '0.78rem', fontWeight: 600, marginBottom: '4px' }}
+                          style={{ display: 'block', color: 'var(--color-4)', fontSize: '0.78rem', fontWeight: 600, marginBottom: '4px' }}
                         >
                           Segmento Industrial / Aplicação
                         </label>
@@ -562,12 +496,12 @@ export default function ContactSection() {
                       </div>
                     </div>
 
-                    {/* Descrição do Projeto com Acesso a Redação em Tela Cheia */}
+                    {/* Linha 3: Resumo Técnico com Header Flexível Protegido */}
                     <div>
-                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
+                      <div className="contact-textarea-header">
                         <label
                           htmlFor="message"
-                          style={{ color: '#CBD5E1', fontSize: '0.78rem', fontWeight: 600 }}
+                          style={{ color: 'var(--color-4)', fontSize: '0.78rem', fontWeight: 600, margin: 0 }}
                         >
                           Resumo Técnico do Desafio *
                         </label>
@@ -576,20 +510,6 @@ export default function ContactSection() {
                         <button
                           type="button"
                           onClick={() => setIsFullscreenMessage(true)}
-                          style={{
-                            background: 'rgba(255, 255, 255, 0.06)',
-                            border: '1px solid rgba(255, 255, 255, 0.2)',
-                            borderRadius: 'var(--radius-sm)',
-                            color: '#94A3B8',
-                            display: 'inline-flex',
-                            alignItems: 'center',
-                            gap: '5px',
-                            padding: '3px 8px',
-                            fontSize: '0.72rem',
-                            fontWeight: 600,
-                            cursor: 'pointer',
-                            transition: `all ${CONTACT_TRANSITION_DURATION} ${CONTACT_TRANSITION_EASE}`
-                          }}
                           className="fullscreen-toggle-btn"
                           title="Abrir editor amplo em tela cheia"
                         >
@@ -612,17 +532,10 @@ export default function ContactSection() {
                       />
                     </div>
 
-                    {/* Botão de Envio Direto (Padrão ForgeX) */}
+                    {/* Botão de Envio Direto (Padrão ForgeX Monocromático) */}
                     <button
                       type="submit"
-                      className="btn-industrial btn-blue-forgex"
-                      style={{
-                        width: '100%',
-                        padding: '14px',
-                        fontSize: '0.94rem',
-                        fontWeight: 700,
-                        marginTop: '6px'
-                      }}
+                      className="btn-industrial btn-monochrome-forgex contact-submit-btn"
                     >
                       <span>Iniciar Atendimento de Engenharia</span>
                       <ArrowUpRight size={18} />
@@ -659,8 +572,8 @@ export default function ContactSection() {
           <div
             onClick={(e) => e.stopPropagation()}
             style={{
-              backgroundColor: '#090E17',
-              border: '1px solid #1E293B',
+              backgroundColor: 'var(--color-1)', // Cor 1: Preto Carbono Profundo
+              border: '1px solid var(--color-3)', // Cor 3: Cinza Neutro de Precisão
               borderRadius: 'var(--radius-card)',
               width: '100%',
               maxWidth: '920px',
@@ -678,16 +591,16 @@ export default function ContactSection() {
               justifyContent: 'space-between',
               alignItems: 'center',
               padding: '16px 24px',
-              borderBottom: '1px solid #1E293B',
-              backgroundColor: '#0F172A'
+              borderBottom: '1px solid var(--color-3)',
+              backgroundColor: 'var(--color-2)' // Cor 2: Preto Grafite Usinado
             }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                <Maximize2 size={18} color="#0066FF" />
+                <Maximize2 size={18} color="var(--color-6)" />
                 <div>
-                  <h4 style={{ color: '#FFFFFF', fontSize: '1.1rem', fontWeight: 700, margin: 0 }}>
+                  <h4 style={{ color: 'var(--color-6)', fontSize: '1.1rem', fontWeight: 700, margin: 0 }}>
                     Especificação Técnica do Desafio
                   </h4>
-                  <span style={{ fontSize: '0.72rem', color: '#94A3B8', fontFamily: 'monospace' }}>
+                  <span style={{ fontSize: '0.72rem', color: 'var(--color-5)', fontFamily: 'monospace' }}>
                     MODO FOCO EM TELA CHEIA
                   </span>
                 </div>
@@ -699,7 +612,7 @@ export default function ContactSection() {
                 style={{
                   background: 'transparent',
                   border: 'none',
-                  color: '#94A3B8',
+                  color: 'var(--color-4)',
                   cursor: 'pointer',
                   padding: '4px',
                   display: 'flex'
@@ -722,10 +635,10 @@ export default function ContactSection() {
                 style={{
                   width: '100%',
                   flex: 1,
-                  backgroundColor: 'rgba(15, 23, 42, 0.85)',
-                  border: '1px solid rgba(255, 255, 255, 0.16)',
+                  backgroundColor: 'var(--color-1)',
+                  border: '1px solid var(--color-3)',
                   borderRadius: 'var(--radius-sm)',
-                  color: '#FFFFFF',
+                  color: 'var(--color-6)',
                   padding: '18px',
                   fontSize: '0.98rem',
                   lineHeight: 1.65,
@@ -743,11 +656,13 @@ export default function ContactSection() {
               justifyContent: 'space-between',
               alignItems: 'center',
               padding: '14px 24px',
-              borderTop: '1px solid #1E293B',
-              backgroundColor: '#05080E'
+              borderTop: '1px solid var(--color-3)',
+              backgroundColor: 'var(--color-2)',
+              flexWrap: 'wrap',
+              gap: '12px'
             }}>
-              <span style={{ fontSize: '0.78rem', color: '#94A3B8', fontFamily: 'monospace' }}>
-                <strong style={{ color: countWords(formData.message) > 4800 ? '#F59E0B' : '#38BDF8' }}>
+              <span style={{ fontSize: '0.78rem', color: 'var(--color-5)', fontFamily: 'monospace' }}>
+                <strong style={{ color: countWords(formData.message) > 4800 ? 'var(--color-4)' : 'var(--color-6)' }}>
                   {countWords(formData.message)}
                 </strong> / 5.000 palavras ({formData.message.length} caracteres) • Pressione ESC para fechar
               </span>
@@ -755,7 +670,7 @@ export default function ContactSection() {
               <button
                 type="button"
                 onClick={() => setIsFullscreenMessage(false)}
-                className="btn-industrial btn-blue-forgex"
+                className="btn-industrial btn-monochrome-forgex"
                 style={{
                   padding: '9px 20px',
                   fontSize: '0.86rem',
@@ -774,15 +689,162 @@ export default function ContactSection() {
         </div>
       )}
 
-      {/* ESTILOS ESPECÍFICOS & ACESSIBILIDADE */}
+      {/* ESTILOS ESPECÍFICOS & ACESSIBILIDADE MOBILE FLUIDA */}
       <style>{`
+        /* Container universal fluido */
+        .contact-container {
+          width: 100%;
+          max-width: 1600px;
+          margin: 0 auto;
+          padding-left: clamp(12px, 3vw, 36px);
+          padding-right: clamp(12px, 3vw, 36px);
+          box-sizing: border-box;
+        }
+
+        .contact-card-box {
+          position: relative;
+          background-color: var(--color-2); /* Cor 2: Preto Grafite Usinado */
+          border-radius: var(--radius-card);
+          border: 1px solid var(--color-3); /* Cor 3: Cinza Neutro de Precisão */
+          box-shadow: 0 25px 60px rgba(0, 0, 0, 0.4);
+          overflow: hidden;
+          padding: clamp(16px, 4vw, 48px);
+          box-sizing: border-box;
+        }
+
+        @media (min-width: 860px) {
+          .contact-card-box {
+            border-radius: var(--radius-hero);
+          }
+        }
+
+        /* Cabeçalho fluido */
+        .contact-header-layout {
+          display: flex;
+          flex-direction: column;
+          gap: 16px;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+          padding-bottom: clamp(18px, 3vh, 32px);
+          margin-bottom: clamp(20px, 3.5vh, 36px);
+        }
+
+        @media (min-width: 860px) {
+          .contact-header-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+          }
+        }
+
+        .contact-heading-title {
+          font-size: clamp(1.65rem, 3.2vw, 2.75rem);
+          line-height: 1.15;
+          font-weight: 800;
+          color: var(--color-6);
+          letter-spacing: -0.02em;
+          margin-top: 4px;
+        }
+
+        .contact-subtitle-desc {
+          font-size: clamp(0.88rem, 1.8vw, 1rem);
+          line-height: 1.6;
+          color: var(--color-4);
+          max-width: 540px;
+        }
+
+        /* Grid principal de conteúdo (Canais e Formulário) */
+        .contact-content-grid {
+          display: flex;
+          flex-direction: column;
+          gap: 24px;
+        }
+
+        @media (min-width: 920px) {
+          .contact-content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.15fr;
+            gap: 40px;
+            align-items: start;
+          }
+        }
+
+        .contact-channel-card {
+          background-color: rgba(255, 255, 255, 0.03);
+          border: 1px solid rgba(255, 255, 255, 0.15);
+          border-radius: var(--radius-card);
+          padding: 16px 18px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          text-decoration: none;
+          min-height: 48px;
+          box-sizing: border-box;
+          transition: transform ${CONTACT_TRANSITION_DURATION} ${CONTACT_TRANSITION_EASE}, border-color ${CONTACT_TRANSITION_DURATION} ${CONTACT_TRANSITION_EASE}, background-color ${CONTACT_TRANSITION_DURATION} ${CONTACT_TRANSITION_EASE};
+        }
+
+        /* Linhas do formulário: 1 coluna no mobile, 2 no tablet/desktop */
+        .contact-form-row {
+          display: flex;
+          flex-direction: column;
+          gap: 12px;
+        }
+
+        @media (min-width: 600px) {
+          .contact-form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+          }
+        }
+
+        .contact-textarea-header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          flex-wrap: wrap;
+          gap: 8px;
+          margin-bottom: 6px;
+        }
+
+        .fullscreen-toggle-btn {
+          background: rgba(255, 255, 255, 0.06);
+          border: 1px solid rgba(255, 255, 255, 0.2);
+          border-radius: var(--radius-sm);
+          color: #94A3B8;
+          display: inline-flex;
+          align-items: center;
+          gap: 5px;
+          padding: 4px 10px;
+          font-size: 0.72rem;
+          font-weight: 600;
+          cursor: pointer;
+          transition: all ${CONTACT_TRANSITION_DURATION} ${CONTACT_TRANSITION_EASE};
+        }
+
+        .contact-submit-btn {
+          width: 100%;
+          min-height: 48px;
+          padding: 12px 18px;
+          font-size: clamp(0.85rem, 2.5vw, 0.94rem);
+          font-weight: 700;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          gap: 8px;
+          margin-top: 6px;
+          box-sizing: border-box;
+          text-align: center;
+          cursor: pointer;
+        }
+
         .contact-input {
           width: 100%;
-          background-color: rgba(15, 23, 42, 0.7);
-          border: 1px solid rgba(255, 255, 255, 0.18);
+          background-color: var(--color-1); /* Cor 1: Preto Carbono Profundo */
+          border: 1px solid var(--color-3); /* Cor 3: Cinza Neutro de Precisão */
           border-radius: var(--radius-sm);
           padding: 10px 14px;
-          color: #FFFFFF;
+          color: var(--color-6); /* Cor 6: Branco Puro */
           font-family: var(--font-body);
           font-size: 0.88rem;
           outline: none;
@@ -791,9 +853,9 @@ export default function ContactSection() {
         }
 
         .contact-input:focus {
-          border-color: #0066FF;
-          background-color: rgba(15, 23, 42, 0.95);
-          box-shadow: 0 0 0 2px rgba(0, 102, 255, 0.25);
+          border-color: var(--color-6);
+          background-color: var(--color-2); /* Cor 2: Preto Grafite Usinado */
+          box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.15);
         }
 
         .contact-channel-card:hover {
@@ -802,19 +864,23 @@ export default function ContactSection() {
           background-color: rgba(255, 255, 255, 0.06);
         }
 
-        .btn-blue-forgex {
-          background-color: #0066FF;
-          color: #FFFFFF !important;
-          border-color: #0066FF;
+        /* BOTÃO MONOCROMÁTICO BRANCO FORGEX (SEM AZUL) */
+        .btn-monochrome-forgex {
+          background-color: var(--color-6) !important;
+          color: var(--color-1) !important;
+          border: 1px solid var(--color-6) !important;
           border-radius: var(--radius-sm);
-          transition: transform ${CONTACT_TRANSITION_DURATION} ${CONTACT_TRANSITION_EASE}, background-color ${CONTACT_TRANSITION_DURATION} ${CONTACT_TRANSITION_EASE};
+          font-weight: 800;
+          transition: transform ${CONTACT_TRANSITION_DURATION} ${CONTACT_TRANSITION_EASE}, background-color ${CONTACT_TRANSITION_DURATION} ${CONTACT_TRANSITION_EASE}, box-shadow ${CONTACT_TRANSITION_DURATION} ${CONTACT_TRANSITION_EASE};
         }
 
-        .btn-blue-forgex:hover {
-          background-color: #0052CC;
-          border-color: #0052CC;
+        .btn-monochrome-forgex:hover {
+          background-color: #EEEEEE !important;
+          border-color: var(--color-6) !important;
+          box-shadow: 0 8px 24px rgba(255, 255, 255, 0.18);
           transform: translateY(${CONTACT_BUTTON_HOVER_Y});
         }
+
         .fullscreen-toggle-btn:hover {
           background-color: rgba(255, 255, 255, 0.12) !important;
           color: #FFFFFF !important;

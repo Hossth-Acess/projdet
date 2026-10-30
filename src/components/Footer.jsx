@@ -31,9 +31,9 @@ export default function Footer({ onOpenPrivacy }) {
   return (
     <footer 
       style={{
-        backgroundColor: '#090E17',
-        borderTop: '1px solid #1E293B',
-        color: '#94A3B8',
+        backgroundColor: 'var(--color-1)', // Cor 1: Preto Carbono Profundo (continuidade sem corte visual)
+        borderTop: '1px solid var(--color-3)', // Cor 3: Borda técnica industrial de 1px
+        color: 'var(--color-4)', // Cor 4: Cinza Neutro de Leitura
         paddingTop: 'var(--spacing-3xl)',
         paddingBottom: 'var(--spacing-xl)',
         width: '100%',
@@ -55,7 +55,7 @@ export default function Footer({ onOpenPrivacy }) {
             gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
             gap: 'clamp(24px, 3vw, 48px)',
             paddingBottom: 'var(--spacing-2xl)',
-            borderBottom: '1px solid rgba(255, 255, 255, 0.1)'
+            borderBottom: '1px solid var(--color-3)'
           }}
         >
           {/* COLUNA 1: IDENTIDADE & FORMAÇÃO TÉCNICA */}
@@ -72,18 +72,18 @@ export default function Footer({ onOpenPrivacy }) {
                   fontWeight: 800,
                   fontSize: '1.25rem',
                   letterSpacing: '0.04em',
-                  color: '#FFFFFF'
+                  color: 'var(--color-6)'
                 }}
               >
                 PROJDET
               </span>
             </div>
 
-            <p style={{ fontSize: '0.86rem', lineHeight: 1.6, color: '#CBD5E1', marginBottom: '16px' }}>
+            <p style={{ fontSize: '0.86rem', lineHeight: 1.6, color: 'var(--color-4)', marginBottom: '16px' }}>
               Engenharia mecânica, projetos industriais paramétricos e detalhamento executivo de alta precisão. Formação de ponta (<strong>UNESP / USP</strong>) com mais de 20 anos de bagagem em gigantes do setor metalmecânico.
             </p>
 
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#38BDF8', fontSize: '0.8rem', fontFamily: 'monospace' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--color-5)', fontSize: '0.8rem', fontFamily: 'monospace' }}>
               <MapPin size={15} />
               <span>PIRACICABA - SP • BRASIL</span>
             </div>
@@ -91,7 +91,7 @@ export default function Footer({ onOpenPrivacy }) {
 
           {/* COLUNA 2: NAVEGAÇÃO RÁPIDA */}
           <div>
-            <h4 style={{ color: '#FFFFFF', fontSize: '0.92rem', fontWeight: 700, letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: '16px' }}>
+            <h4 style={{ color: 'var(--color-6)', fontSize: '0.92rem', fontWeight: 700, letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: '16px' }}>
               Navegação
             </h4>
             <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '10px' }}>
@@ -103,7 +103,7 @@ export default function Footer({ onOpenPrivacy }) {
               ].map((link, idx) => (
                 <li key={idx}>
                   <a href={link.href} className="footer-nav-link">
-                    <ChevronRight size={14} style={{ color: '#64748B' }} />
+                    <ChevronRight size={14} style={{ color: 'var(--color-5)' }} />
                     <span>{link.label}</span>
                   </a>
                 </li>
@@ -113,7 +113,7 @@ export default function Footer({ onOpenPrivacy }) {
 
           {/* COLUNA 3: ESPECIALIDADES & NORMAS */}
           <div>
-            <h4 style={{ color: '#FFFFFF', fontSize: '0.92rem', fontWeight: 700, letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: '16px' }}>
+            <h4 style={{ color: 'var(--color-6)', fontSize: '0.92rem', fontWeight: 700, letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: '16px' }}>
               Especialidades
             </h4>
             <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '10px' }}>
@@ -124,8 +124,8 @@ export default function Footer({ onOpenPrivacy }) {
                 'Adequação & Proteção Operacional (NR-12)',
                 'Modelagem Paramétrica & Simulação 3D'
               ].map((spec, idx) => (
-                <li key={idx} style={{ fontSize: '0.84rem', color: '#94A3B8', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                  <span style={{ width: '4px', height: '4px', borderRadius: '50%', backgroundColor: '#0066FF' }} />
+                <li key={idx} style={{ fontSize: '0.84rem', color: 'var(--color-4)', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <span style={{ width: '4px', height: '4px', borderRadius: '50%', backgroundColor: 'var(--color-5)' }} />
                   <span>{spec}</span>
                 </li>
               ))}
@@ -134,7 +134,7 @@ export default function Footer({ onOpenPrivacy }) {
 
           {/* COLUNA 4: CONTATO DIRETO & SUPORTE */}
           <div>
-            <h4 style={{ color: '#FFFFFF', fontSize: '0.92rem', fontWeight: 700, letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: '16px' }}>
+            <h4 style={{ color: 'var(--color-6)', fontSize: '0.92rem', fontWeight: 700, letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: '16px' }}>
               Engenharia Direta
             </h4>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', fontSize: '0.86rem' }}>
@@ -144,7 +144,7 @@ export default function Footer({ onOpenPrivacy }) {
                 rel="noopener noreferrer"
                 className="footer-contact-link"
               >
-                <Phone size={15} color="#38BDF8" />
+                <Phone size={15} color="var(--color-4)" />
                 <span>+55 (19) 99597-7417</span>
               </a>
 
@@ -152,7 +152,7 @@ export default function Footer({ onOpenPrivacy }) {
                 href="mailto:contato@projdet.com.br" 
                 className="footer-contact-link"
               >
-                <Mail size={15} color="#38BDF8" />
+                <Mail size={15} color="var(--color-4)" />
                 <span>contato@projdet.com.br</span>
               </a>
 
@@ -174,7 +174,7 @@ export default function Footer({ onOpenPrivacy }) {
             alignItems: 'center',
             gap: '14px',
             fontSize: '0.78rem',
-            color: '#64748B'
+            color: 'var(--color-5)'
           }}
         >
           <div>
@@ -182,22 +182,25 @@ export default function Footer({ onOpenPrivacy }) {
           </div>
 
           <div style={{ display: 'flex', alignItems: 'center', gap: '18px' }}>
-            {onOpenPrivacy && (
-              <button
-                type="button"
-                onClick={onOpenPrivacy}
-                style={{
-                  background: 'transparent',
-                  border: 'none',
-                  color: '#94A3B8',
-                  fontSize: '0.78rem',
-                  cursor: 'pointer',
-                  textDecoration: 'underline'
-                }}
-              >
-                Privacidade & Cookies
-              </button>
-            )}
+            <a
+              href="/politica-de-privacidade"
+              onClick={(e) => {
+                if (onOpenPrivacy) {
+                  e.preventDefault();
+                  onOpenPrivacy();
+                }
+              }}
+              style={{
+                color: 'var(--color-4)',
+                fontSize: '0.78rem',
+                textDecoration: 'underline',
+                cursor: 'pointer',
+                transition: `color ${FOOTER_TRANSITION_DURATION} ${FOOTER_TRANSITION_EASE}`
+              }}
+              className="footer-privacy-link"
+            >
+              Política de Privacidade & LGPD
+            </a>
           </div>
         </div>
       </div>
@@ -207,23 +210,23 @@ export default function Footer({ onOpenPrivacy }) {
           display: inline-flex;
           align-items: center;
           gap: 6px;
-          color: #94A3B8;
+          color: var(--color-4);
           font-size: 0.86rem;
           transition: color ${FOOTER_TRANSITION_DURATION} ${FOOTER_TRANSITION_EASE}, transform ${FOOTER_TRANSITION_DURATION} ${FOOTER_TRANSITION_EASE};
         }
         .footer-nav-link:hover {
-          color: #FFFFFF !important;
+          color: var(--color-6) !important;
           transform: translateX(3px);
         }
         .footer-contact-link {
           display: inline-flex;
           align-items: center;
           gap: 10px;
-          color: #CBD5E1;
+          color: var(--color-4);
           transition: color ${FOOTER_TRANSITION_DURATION} ${FOOTER_TRANSITION_EASE};
         }
         .footer-contact-link:hover {
-          color: #38BDF8 !important;
+          color: var(--color-6) !important;
         }
       `}</style>
     </footer>

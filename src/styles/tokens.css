@@ -20,27 +20,38 @@
 /**
  * TOKENS DO DESIGN SYSTEM - RÉPLICA FIEL DO FORGEX (PRETO, BRANCO E CINZA)
  * -----------------------------------------------------------------------------
- * Estilo visual limpo, fundo predominantemente BRANCO, tipografia grafite nítida,
- * paleta estritamente monocromática industrial e geometria refinada de cantos.
+ * Sistema de variáveis numeradas (--color-1 até --color-6) para controle total
+ * da paleta acromática neutra, zero saturação de azul e foco total nos projetos CAD.
  */
 :root {
-  /* Paleta Monocromática Limpa */
-  --color-bg-body: #FFFFFF;             /* Fundo do site 100% Branco Puro */
-  --color-bg-surface-gray: #F8FAFC;     /* Cinza claríssimo para faixas técnicas e métricas */
-  --color-bg-card-white: #FFFFFF;       /* Fundo dos cards brancos */
+  /* =========================================================================
+   * PALETA MONOCROMÁTICA OFICIAL (VARIÁVEIS NUMERADAS PARA CONTROLE GLOBAL)
+   * ========================================================================= */
+  --color-1: #0A0A0A; /* Cor 1: Preto Carbono Profundo (Fundo escuro principal de imersão) */
+  --color-2: #141414; /* Cor 2: Preto Grafite Usinado (Superfície dos cards elevados) */
+  --color-3: #262626; /* Cor 3: Cinza Neutro de Precisão (Linhas divisórias e bordas técnicas de 1px) */
+  --color-4: #A3A3A3; /* Cor 4: Cinza Neutro de Leitura (Descrições e textos descansados no escuro) */
+  --color-5: #737373; /* Cor 5: Cinza Metálico Médio (Rótulos monospace, badges e metadados) */
+  --color-6: #FFFFFF; /* Cor 6: Branco Puro Absoluto (Títulos principais, botões de destaque e halo) */
 
-  /* Bloco Hero Flutuante (Card Escuro do ForgeX) */
-  --color-hero-bg: #090E17;             /* Fundo preto/chumbo escuro profundo */
+  /* Cores de apoio para superfícies claras (Seção Quem Somos) */
+  --color-light-bg: #FFFFFF;     /* Fundo branco puro da seção Quem Somos */
+  --color-light-surface: #F5F5F5;/* Superfície cinza claríssima de métricas */
+  --color-light-border: #E5E5E5; /* Borda cinza neutra em fundo claro */
+  --color-light-title: #171717;  /* Título grafite em fundo claro */
+  --color-light-body: #525252;   /* Texto parágrafo em fundo claro */
 
-  /* Tipografia Monocromática */
-  --color-text-title: #0F172A;          /* Preto grafite para títulos no branco */
-  --color-text-body: #475569;           /* Cinza para leitura de parágrafos */
-  --color-text-muted: #94A3B8;          /* Cinza claro para rótulos pequenos */
-  --color-text-white: #FFFFFF;          /* Branco puro para textos sobre superfícies escuras */
-
-  /* Linhas e Bordas Finas */
-  --color-border-clean: #E2E8F0;        /* Borda sutil nos blocos brancos */
-  --color-border-dark: rgba(255, 255, 255, 0.15); /* Borda no Hero escuro */
+  /* Aliases Semânticos herdando das Variáveis Numeradas */
+  --color-bg-body: var(--color-light-bg);
+  --color-bg-surface-gray: var(--color-light-surface);
+  --color-bg-card-white: #FFFFFF;
+  --color-hero-bg: var(--color-1);
+  --color-text-title: var(--color-light-title);
+  --color-text-body: var(--color-light-body);
+  --color-text-muted: var(--color-5);
+  --color-text-white: var(--color-6);
+  --color-border-clean: var(--color-light-border);
+  --color-border-dark: var(--color-3);
 
   /* GEOMETRIA DE BORDAS (PADRÃO FORGEX) */
   --radius-sm: 8px;                     /* Botões e tags */
@@ -152,40 +163,40 @@ img, video {
 
 /* Botão Branco Sólido de Alto Contraste */
 .btn-white {
-  background-color: #FFFFFF;
-  color: #0F172A !important;
-  border-color: #FFFFFF;
+  background-color: var(--color-6);
+  color: var(--color-1) !important;
+  border-color: var(--color-6);
 }
 
 .btn-white:hover {
-  background-color: #F1F5F9;
-  border-color: #E2E8F0;
+  background-color: var(--color-light-surface);
+  border-color: var(--color-6);
   transform: translateY(-1px);
 }
 
 /* Botão Preto Sólido (Header & Chamadas) */
 .btn-black {
-  background-color: #0F172A;
-  color: #FFFFFF !important;
-  border-color: #0F172A;
+  background-color: var(--color-1);
+  color: var(--color-6) !important;
+  border-color: var(--color-3);
 }
 
 .btn-black:hover {
-  background-color: #1E293B;
-  border-color: #1E293B;
+  background-color: var(--color-2);
+  border-color: var(--color-6);
   transform: translateY(-1px);
 }
 
-/* Botão Borda Branca para Áreas Escuras (Hero) */
+/* Botão Preto Sólido Oficial para Áreas Escuras (Hero) */
 .btn-hero-outline {
-  background-color: transparent;
-  color: #FFFFFF !important;
-  border-color: rgba(255, 255, 255, 0.45);
+  background-color: var(--color-1);
+  color: var(--color-6) !important;
+  border-color: var(--color-3);
 }
 
 .btn-hero-outline:hover {
-  background-color: rgba(255, 255, 255, 0.12);
-  border-color: #FFFFFF;
+  background-color: var(--color-2);
+  border-color: var(--color-6);
   transform: translateY(-1px);
 }
 

@@ -19,6 +19,7 @@ import SolutionsSection from './components/SolutionsSection';
 import ContactSection from './components/ContactSection';
 import Footer from './components/Footer';
 import CookieBanner from './components/CookieBanner';
+import PrivacyPolicyPage from './pages/PrivacyPolicyPage';
 import { supabase, isSupabaseConfigured } from './services/supabase';
 
 // Chunk isolado via code splitting sob demanda (visitantes regulares não baixam este código)
@@ -32,8 +33,15 @@ const DEFAULT_HERO_IMAGE_DESKTOP = 'https://txfimdsadaasfgttvczz.supabase.co/sto
 const DEFAULT_HERO_IMAGE_MOBILE = 'https://txfimdsadaasfgttvczz.supabase.co/storage/v1/object/public/project-images/hero-mobile-1793304158990.webps';
 
 export default function App() {
-  // Estado para controle do modal de políticas/LGPD acionado pelo rodapé ou banner
-  const [isPrivacyOpen, setIsPrivacyOpen] = useState(false);
+  // Estado para rota dedicada e indexável da Política de Privacidade & LGPD
+  const [isPrivacyRoute, setIsPrivacyRoute] = useState(() => {
+    if (typeof window !== 'undefined') {
+      const path = (window.location.pathname || '').replace(/\/+$/, '').toLowerCase();
+      const hash = (window.location.hash || '').toLowerCase();
+      return path === '/politica-de-privacidade' || path === '/privacidade' || hash === '#privacidade';
+    }
+    return false;
+  });
 
   // Estado para abertura do painel administrativo
   const [isAdminOpen, setIsAdminOpen] = useState(false);
@@ -108,45 +116,74 @@ export default function App() {
     syncHeroSettings();
   }, []);
 
-  // 2. GARANTE QUE O SITE RECARREGUE SEMPRE NO INÍCIO (TOPO) E NÃO PRESO EM #CONTATO
+  // 2. GARANTE QUE O SITE RECARREGUE SEMPRE NO INÍCIO (TOPO) QUANDO NA HOME
   useEffect(() => {
     if ('scrollRestoration' in window.history) {
       window.history.scrollRestoration = 'manual';
     }
 
-    if (window.location.hash !== '#admin') {
+    if (window.location.hash !== '#admin' && !isPrivacyRoute) {
       window.scrollTo(0, 0);
       if (window.location.hash) {
         window.history.replaceState(null, null, window.location.pathname);
       }
     }
-  }, []);
+  }, [isPrivacyRoute]);
 
-  // 3. Monitora se o usuário acessou pela URL secreta ou pelo atalho hash #admin
+  // 3. Monitora se o usuário acessou pela URL secreta, rota de privacidade ou atalhos
   useEffect(() => {
-    const checkAdminRoute = () => {
+    const checkRoutes = () => {
       // Normaliza o caminho ignorando barras no final e diferenças de maiúsculas/minúsculas
       const currentPath = (window.location.pathname || '').replace(/\/+$/, '').toLowerCase();
-      const targetPath = SECRET_ADMIN_PATH.replace(/\/+$/, '').toLowerCase();
+      const targetAdminPath = SECRET_ADMIN_PATH.replace(/\/+$/, '').toLowerCase();
       const currentHash = (window.location.hash || '').toLowerCase();
 
-      if (currentPath === targetPath || currentHash === '#admin') {
+      // Checagem de rota administrativa
+      if (currentPath === targetAdminPath || currentHash === '#admin') {
         setIsAdminOpen(true);
+      }
+
+      // Checagem de rota da Política de Privacidade (Canônica para Googlebot e LGPD)
+      if (
+        currentPath === '/politica-de-privacidade' || 
+        currentPath === '/privacidade' || 
+        currentHash === '#privacidade'
+      ) {
+        setIsPrivacyRoute(true);
+      } else if (currentPath !== targetAdminPath && currentHash !== '#admin') {
+        setIsPrivacyRoute(false);
       }
     };
 
-    checkAdminRoute();
-    window.addEventListener('hashchange', checkAdminRoute);
-    window.addEventListener('popstate', checkAdminRoute);
+    checkRoutes();
+    window.addEventListener('hashchange', checkRoutes);
+    window.addEventListener('popstate', checkRoutes);
     return () => {
-      window.removeEventListener('hashchange', checkAdminRoute);
-      window.removeEventListener('popstate', checkAdminRoute);
+      window.removeEventListener('hashchange', checkRoutes);
+      window.removeEventListener('popstate', checkRoutes);
     };
   }, []);
 
-  // 4. Injeta dinamicamente a meta tag noindex, nofollow quando o painel administrativo estiver ativo
+  // Navegação sem recarregar a página (History API) para a Política de Privacidade
+  const navigateToPrivacy = () => {
+    window.history.pushState(null, '', '/politica-de-privacidade');
+    setIsPrivacyRoute(true);
+    window.scrollTo(0, 0);
+  };
+
+  // Retorno à página inicial sem recarregar
+  const navigateToHome = () => {
+    window.history.pushState(null, '', '/');
+    setIsPrivacyRoute(false);
+    window.scrollTo(0, 0);
+  };
+
+  // 4. Injeta dinamicamente metadados SEO, Canonical e Robots para indexação do Google
   useEffect(() => {
     let robotsMeta = document.querySelector('meta[name="robots"]');
+    let metaDescription = document.querySelector('meta[name="description"]');
+    let linkCanonical = document.querySelector('link[rel="canonical"]');
+
     if (isAdminOpen) {
       if (!robotsMeta) {
         robotsMeta = document.createElement('meta');
@@ -154,10 +191,44 @@ export default function App() {
         document.head.appendChild(robotsMeta);
       }
       robotsMeta.content = 'noindex, nofollow';
-    } else if (robotsMeta) {
-      robotsMeta.content = 'index, follow';
+    } else if (isPrivacyRoute) {
+      document.title = 'Política de Privacidade & Sigilo Industrial | PROJDET';
+      if (robotsMeta) robotsMeta.content = 'index, follow';
+      if (metaDescription) {
+        metaDescription.setAttribute('content', 'Diretrizes oficiais de privacidade, conformidade estrita com a LGPD (Lei 13.709/2018) e cláusula pétrea de sigilo industrial (NDA) da PROJDET Engenharia em Piracicaba-SP.');
+      }
+      if (!linkCanonical) {
+        linkCanonical = document.createElement('link');
+        linkCanonical.setAttribute('rel', 'canonical');
+        document.head.appendChild(linkCanonical);
+      }
+      linkCanonical.setAttribute('href', 'https://projdet.com.br/politica-de-privacidade');
+    } else {
+      document.title = 'PROJDET | Projetos Mecânicos, Detalhamento e Modelagem 3D';
+      if (robotsMeta) robotsMeta.content = 'index, follow';
+      if (metaDescription) {
+        metaDescription.setAttribute('content', 'Especialistas em projetos mecânicos, detalhamento técnico executivo e desenvolvimento de equipamentos industriais em Piracicaba-SP. Atendimento em caldeiraria, estruturas metálicas, tubulações e agricultura.');
+      }
+      if (linkCanonical) {
+        linkCanonical.setAttribute('href', 'https://projdet.com.br/');
+      }
     }
-  }, [isAdminOpen]);
+  }, [isPrivacyRoute, isAdminOpen]);
+
+  // Se a rota ativa for a Política de Privacidade dedicada, renderiza a página oficial indexável
+  if (isPrivacyRoute) {
+    return (
+      <div style={{
+        minHeight: '100vh',
+        backgroundColor: 'var(--color-1)',
+        display: 'flex',
+        flexDirection: 'column'
+      }}>
+        <PrivacyPolicyPage onBackToHome={navigateToHome} />
+        <CookieBanner onOpenPolicy={navigateToPrivacy} />
+      </div>
+    );
+  }
 
   return (
     <div style={{
@@ -189,16 +260,14 @@ export default function App() {
         <ContactSection />
       </main>
 
-      {/* 3. Rodapé Técnico Industrial com acionamento do Modal de Privacidade */}
+      {/* 3. Rodapé Técnico Industrial com link canônico para a Política de Privacidade */}
       <Footer
-        onOpenPrivacy={() => setIsPrivacyOpen(true)}
+        onOpenPrivacy={navigateToPrivacy}
       />
 
-      {/* 4. Banner & Modal LGPD com persistência em LocalStorage */}
+      {/* 4. Banner LGPD discreto com link para a rota oficial e consentimento em LocalStorage */}
       <CookieBanner
-        isOpenModal={isPrivacyOpen}
-        onCloseModal={() => setIsPrivacyOpen(false)}
-        onOpenModal={() => setIsPrivacyOpen(true)}
+        onOpenPolicy={navigateToPrivacy}
       />
 
       {/* 5. Painel Administrativo em Rota Secreta Protegida (React.lazy) */}
@@ -207,12 +276,12 @@ export default function App() {
           <div style={{
             position: 'fixed',
             inset: 0,
-            backgroundColor: '#090E17',
+            backgroundColor: 'var(--color-1)',
             zIndex: 2000,
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            color: '#38BDF8',
+            color: 'var(--color-6)',
             fontFamily: 'monospace',
             fontSize: '0.9rem'
           }}>

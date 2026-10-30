@@ -5,6 +5,7 @@
 
 User-agent: *
 Allow: /
+Allow: /politica-de-privacidade
 
 # Aponta o mapa do site público para indexação nos mecanismos de busca
 Sitemap: https://projdet.com.br/sitemap.xml

@@ -205,18 +205,18 @@ export default function HeroSection({
           align-items: center;
         }
 
-        /* Botão translúcido com blur */
+        /* Botão Preto Sólido de Alto Contraste (Sem Transparência) */
         .btn-hero-outline {
-          background-color: rgba(9, 14, 23, 0.65);
-          backdrop-filter: blur(8px);
-          -webkit-backdrop-filter: blur(8px);
-          color: #FFFFFF !important;
-          border-color: rgba(255, 255, 255, 0.35);
+          background-color: var(--color-1); /* Cor 1: Preto Carbono 100% sólido (#0A0A0A) */
+          color: var(--color-6) !important; /* Cor 6: Branco Puro */
+          border: 1.5px solid var(--color-3); /* Cor 3: Borda usinada nítida */
+          box-shadow: 0 4px 14px rgba(0, 0, 0, 0.45);
         }
 
         .btn-hero-outline:hover {
-          background-color: rgba(9, 14, 23, 0.85);
-          border-color: #FFFFFF;
+          background-color: var(--color-2); /* Cor 2: Preto Grafite no hover */
+          border-color: var(--color-6);      /* Contorno branco nítido */
+          transform: translateY(-1px);
         }
 
         /* Rodapé Integrado */
@@ -229,16 +229,16 @@ export default function HeroSection({
           padding-top: var(--spacing-sm);
         }
 
+        /* Selo de Localização 100% Sólido */
         .hero-bleed-location-pill {
           display: inline-flex;
           align-items: center;
           gap: 6px;
           padding: 4px 10px;
-          background-color: rgba(9, 14, 23, 0.60);
-          backdrop-filter: blur(6px);
-          border: 1px solid rgba(255, 255, 255, 0.20);
+          background-color: var(--color-1); /* Cor 1: Fundo opaco */
+          border: 1px solid var(--color-3); /* Cor 3: Borda sólida */
           border-radius: var(--radius-sm);
-          color: #FFFFFF;
+          color: var(--color-6);
           font-family: monospace;
           font-weight: 700;
         }

@@ -220,13 +220,13 @@ export default function Header() {
           font-weight: 800;
           font-size: 1.15rem;
           letter-spacing: 0.04em;
-          color: #0F172A;
+          color: var(--color-1); /* Cor 1: Preto Carbono Profundo */
           line-height: 1;
         }
 
         .header-brand-subtitle {
           font-size: 0.65rem;
-          color: #64748B;
+          color: var(--color-5); /* Cor 5: Cinza Metálico Médio (Zero azul) */
           letter-spacing: 0.08em;
           text-transform: uppercase;
           font-weight: 600;
@@ -245,13 +245,13 @@ export default function Header() {
           font-family: var(--font-heading);
           font-weight: 500;
           font-size: 0.90rem;
-          color: #334155 !important;
+          color: #404040 !important;
           transition: color ${HEADER_TRANSITION_DURATION} ${MOBILE_MENU_EASE};
           text-decoration: none;
         }
 
         .header-nav-link:hover {
-          color: #0F172A !important;
+          color: var(--color-1) !important;
           font-weight: 600;
         }
 
@@ -291,7 +291,7 @@ export default function Header() {
           background: #F8FAFC;
           border: 1px solid var(--color-border-clean);
           border-radius: var(--radius-sm);
-          color: #0F172A;
+          color: var(--color-1);
           cursor: pointer;
           transition: background-color ${HEADER_TRANSITION_DURATION};
         }
@@ -310,7 +310,7 @@ export default function Header() {
           right: 0;
           width: 100%;
           background-color: #FFFFFF;
-          border-bottom: 2px solid #0066FF;
+          border-bottom: 2px solid var(--color-1);
           box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
           z-index: 1050;
           padding: 16px 20px 24px 20px;
@@ -345,19 +345,19 @@ export default function Header() {
           font-family: var(--font-heading);
           font-size: 0.98rem;
           font-weight: 600;
-          color: #0F172A !important;
+          color: var(--color-1) !important;
           text-decoration: none;
           transition: color ${HEADER_TRANSITION_DURATION};
         }
 
         .mobile-menu-link:hover, .mobile-menu-link:active {
-          color: #0066FF !important;
+          color: var(--color-4) !important;
         }
 
         .mobile-link-indicator {
           font-family: monospace;
           font-size: 0.72rem;
-          color: #94A3B8;
+          color: var(--color-5);
         }
 
         .mobile-menu-footer {
@@ -380,7 +380,7 @@ export default function Header() {
           text-align: center;
           font-family: monospace;
           font-size: 0.68rem;
-          color: #64748B;
+          color: var(--color-5);
           letter-spacing: 0.06em;
         }
 
@@ -391,7 +391,7 @@ export default function Header() {
           left: 0;
           right: 0;
           bottom: 0;
-          background-color: rgba(9, 14, 23, 0.50);
+          background-color: rgba(10, 10, 10, 0.50);
           backdrop-filter: blur(2px);
           -webkit-backdrop-filter: blur(2px);
           z-index: 1040;
@@ -418,6 +418,8 @@ export default function Header() {
         @media (max-width: 859px) {
           .header-container-inner {
             height: 64px;
+            padding-left: clamp(10px, 3vw, 16px);
+            padding-right: clamp(10px, 3vw, 16px);
           }
           .desktop-nav {
             display: none !important;
@@ -427,18 +429,42 @@ export default function Header() {
           }
           .mobile-cta-btn {
             display: inline-flex !important;
+            padding: 6px 10px;
+            font-size: 0.74rem;
+            font-weight: 700;
+            white-space: nowrap;
           }
           .mobile-toggle-btn {
             display: flex !important;
+            width: 36px;
+            height: 36px;
+            flex-shrink: 0;
+          }
+          .header-actions-group {
+            gap: 6px;
+          }
+          .header-brand-link {
+            gap: 8px;
+            min-width: 0;
+            flex-shrink: 1;
           }
           .header-brand-logo {
-            height: 30px;
+            height: 28px;
+            flex-shrink: 0;
           }
           .header-brand-name {
-            font-size: 1.05rem;
+            font-size: 1.02rem;
+            line-height: 1.05;
           }
+          /* SUBTÍTULO 100% VISÍVEL E NUNCA OCULTADO EM NENHUM DISPOSITIVO */
           .header-brand-subtitle {
-            font-size: 0.58rem;
+            display: block !important;
+            font-size: 0.54rem;
+            letter-spacing: 0.05em;
+            font-weight: 700;
+            color: var(--color-5);
+            margin-top: 2px;
+            white-space: nowrap;
           }
         }
       `}</style>
