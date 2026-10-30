@@ -1,10 +1,58 @@
+# ==============================================================================
+# PROJDET - CONFIGURAÇÃO DE ALTA PERFORMANCE E CACHE HTTP (HOSTINGER / APACHE)
+# ==============================================================================
+
+# 1. Habilita compressão Gzip / Brotli no servidor para transferência ultraleve
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css
+  AddOutputFilterByType DEFLATE application/javascript application/json
+  AddOutputFilterByType DEFLATE image/svg+xml application/x-font-ttf font/woff2
+</IfModule>
+
+# 2. Ciclo de vida longo de cache (1 Ano) para arquivos estáticos e imutáveis
+<IfModule mod_expires.c>
+  ExpiresActive On
+
+  # Imagens e Mídias (1 ano)
+  ExpiresByType image/webp "access plus 1 year"
+  ExpiresByType image/jpeg "access plus 1 year"
+  ExpiresByType image/png "access plus 1 year"
+  ExpiresByType image/svg+xml "access plus 1 year"
+  ExpiresByType image/x-icon "access plus 1 year"
+
+  # Fontes Web (1 ano)
+  ExpiresByType font/woff2 "access plus 1 year"
+  ExpiresByType font/woff "access plus 1 year"
+
+  # Bundles JavaScript e Estilos CSS com hash (1 ano)
+  ExpiresByType text/css "access plus 1 year"
+  ExpiresByType application/javascript "access plus 1 year"
+
+  # HTML sempre fresco (revalidação imediata para atualizações do site)
+  ExpiresByType text/html "access plus 0 seconds"
+</IfModule>
+
+# 3. Cabeçalhos HTTP de Cache-Control para máxima conformidade com o Google
+<IfModule mod_headers.c>
+  # Assets com hash e imagens estáticas (Imutáveis)
+  <FilesMatch "\.(js|css|webp|jpg|jpeg|png|svg|woff2)$">
+    Header set Cache-Control "max-age=31536000, public, immutable"
+  </FilesMatch>
+
+  # Documento HTML (Zero retenção de versão antiga)
+  <FilesMatch "\.(html|htm)$">
+    Header set Cache-Control "no-cache, no-store, must-revalidate"
+    Header set Pragma "no-cache"
+    Header set Expires 0
+  </FilesMatch>
+</IfModule>
+
+# 4. Fallback de Rotas da SPA (Garante funcionamento de rotas diretas)
 <IfModule mod_rewrite.c>
   RewriteEngine On
   RewriteBase /
   RewriteRule ^index\.html$ - [L]
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d
-  RewriteCond %{REQUEST_FILENAME} !-l
   RewriteRule . /index.html [L]
 </IfModule>
-

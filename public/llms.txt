@@ -1,0 +1,20 @@
+# PROJDET - Engenharia Mecânica e Modelagem 3D Industrial
+
+> A PROJDET (PROJDET SERVICOS DE PROJETOS E DETALHAMENTOS TECNICOS LTDA) é uma empresa de engenharia e detalhamento técnico executivo sediada em Piracicaba-SP, atuando em conformidade com as normas ABNT e NR-12 para indústrias em todo o território nacional.
+
+## Seções e Recursos do Site
+
+- [Início](https://projdet.com.br/#inicio): Visão geral institucional e engenharia especializada para a indústria metalmecânica.
+- [Quem Somos & Trajetória](https://projdet.com.br/#quem-somos): Formação acadêmica (UNESP, USP, ETEC) e experiência profissional em grandes empresas do setor (CESP, Bardella, Dedini).
+- [Projetos e Soluções](https://projdet.com.br/#solucoes): Catálogo de projetos executivos em caldeiraria pesada, estruturas metálicas, tubulações e simulações 3D.
+- [Viabilidade Técnica & Contato](https://projdet.com.br/#contato): Canal direto para solicitação de orçamentos e consultoria de engenharia sob demanda.
+- [Política de Privacidade & Sigilo](https://projdet.com.br/politica-de-privacidade): Termos de confidencialidade (NDA), conformidade com a LGPD e arquitetura de zero retenção no site.
+
+## Dados da Empresa
+
+- Razão Social: PROJDET SERVICOS DE PROJETOS E DETALHAMENTOS TECNICOS LTDA
+- Localização: Piracicaba - SP, Brasil
+- CNAE Principal: 7112-0/00 - Serviços de engenharia
+- CNAE Secundário: 7119-7/03 - Serviços de desenho técnico relacionados à arquitetura e engenharia
+- Contato Oficial: contato@projdet.com.br
+
