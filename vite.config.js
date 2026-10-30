@@ -14,5 +14,20 @@ export default defineConfig({
   },
   optimizeDeps: {
     include: ['react', 'react-dom', 'lucide-react', '@supabase/supabase-js']
+  },
+  build: {
+    target: 'esnext',
+    minify: 'esbuild', // Minificação ultraveloz nativa
+    cssCodeSplit: true, // Divide o CSS para carregamento assíncrono em paralelo
+    rollupOptions: {
+      output: {
+        // Separa bibliotecas grandes em chunks cacheados no navegador
+        manualChunks: {
+          'vendor-react': ['react', 'react-dom'],
+          'vendor-supabase': ['@supabase/supabase-js'],
+          'vendor-icons': ['lucide-react']
+        }
+      }
+    }
   }
 });

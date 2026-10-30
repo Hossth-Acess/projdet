@@ -15,16 +15,23 @@
     <!-- Favicon Oficial em Alta Resolução -->
     <link rel="icon" type="image/png" href="/logo.png" />
     
-    <!-- Pré-aquecimento de DNS e Conexão de Alta Velocidade para Vídeos e Imagens -->
-    <link rel="preconnect" href="https://www.youtube.com" />
-    <link rel="preconnect" href="https://i.ytimg.com" />
-    <link rel="dns-prefetch" href="https://googlevideo.com" />
+    <!-- Conexão de Alta Velocidade com a CDN do Supabase para Carregamento Imediato de Imagens -->
+    <link rel="preconnect" href="https://txfimdsadaasfgttvczz.supabase.co" crossorigin />
+    <link rel="dns-prefetch" href="https://txfimdsadaasfgttvczz.supabase.co" />
 
-    <!-- Google Fonts: Outfit (Títulos técnicos modernos) e Inter (Corpo com alta legibilidade) -->
+    <!-- Preload Crítico da Imagem LCP do Hero (Garante abertura instantânea sem flash em branco) -->
+    <link 
+      rel="preload" 
+      as="image" 
+      href="https://txfimdsadaasfgttvczz.supabase.co/storage/v1/object/public/project-images/hero-desktop-1793304150655.webp" 
+      fetchpriority="high" 
+    />
+
+    <!-- Google Fonts Otimizadas: Carregamento estrito apenas dos pesos utilizados (Inter 400-700 / Outfit 600-800) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link 
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" 
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@600;700;800&display=swap" 
       rel="stylesheet" 
     />
   </head>

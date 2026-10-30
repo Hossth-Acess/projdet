@@ -152,15 +152,20 @@ export default function AboutSection() {
                   cursor: 'pointer'
                 }}
               >
-                {/* Imagem de Fundo Industrial 100% Nítida (Sem máscaras escuras) */}
-                <div
+                {/* Imagem de Fundo Industrial 100% Nítida com Lazy Loading Nativo (Carrega apenas ao rolar) */}
+                <img
+                  src={card.image}
+                  alt={card.title}
+                  loading="lazy"
+                  decoding="async"
                   style={{
                     position: 'absolute',
                     inset: 0,
-                    backgroundImage: `url(${card.image})`,
-                    backgroundSize: 'cover',
-                    backgroundPosition: 'center',
-                    opacity: 1, // Opacidade total (100% nítida)
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover',
+                    objectPosition: 'center',
+                    opacity: 1, // Nitidez total
                     zIndex: 0,
                     transition: `transform 400ms ${CARD_HOVER_EASE}`
                   }}

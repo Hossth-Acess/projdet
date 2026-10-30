@@ -7,7 +7,7 @@
  * - Custo zero de largura de banda e zero menus/logos de terceiros
  * - Mantém composição cinematográfica (Lower-Third) e selo de Piracicaba na base
  */
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { ArrowUpRight } from 'lucide-react';
 
 /**
@@ -29,44 +29,28 @@ export default function HeroSection({
   heroVideoDesktop = '',
   heroVideoMobile = ''
 }) {
-  // Monitora se o usuário está em dispositivo móvel (tela <= 768px)
-  const [isMobile, setIsMobile] = useState(() => {
-    if (typeof window !== 'undefined') {
-      return window.innerWidth <= 768;
-    }
-    return false;
-  });
-
-  useEffect(() => {
-    const mediaQuery = window.matchMedia('(max-width: 768px)');
-    const handleDeviceChange = (e) => setIsMobile(e.matches);
-
-    if (mediaQuery.addEventListener) {
-      mediaQuery.addEventListener('change', handleDeviceChange);
-      return () => mediaQuery.removeEventListener('change', handleDeviceChange);
-    } else {
-      mediaQuery.addListener(handleDeviceChange);
-      return () => mediaQuery.removeListener(handleDeviceChange);
-    }
-  }, []);
-
-  // Seleciona a imagem ativa conforme o dispositivo
+  // Seleciona as imagens ativas para Desktop e Mobile com fallback seguro de alta definição
   const activeDesktopImg = heroImageDesktop || DEFAULT_DESKTOP_IMAGE;
   const activeMobileImg = heroImageMobile || activeDesktopImg || DEFAULT_MOBILE_IMAGE;
-  const currentImage = isMobile ? activeMobileImg : activeDesktopImg;
 
   return (
     <section id="inicio" className="hero-bleed-section">
       
-      {/* 1. MÁSCARA DA IMAGEM FULL-BLEED (COBERTURA TOTAL CRISTALINA EM ALTA RESOLUÇÃO) */}
+      {/* 1. MÁSCARA DA IMAGEM FULL-BLEED (CARREGAMENTO NATIVO VIA TAG PICTURE) */}
       <div className="hero-bleed-mask">
-        <img 
-          src={currentImage}
-          alt="PROJDET - Engenharia & Modelagem 3D Industrial"
-          className="hero-bleed-image"
-          fetchPriority="high"
-          decoding="async"
-        />
+        <picture style={{ display: 'block', width: '100%', height: '100%' }}>
+          {/* O navegador avalia a mídia de tela em nível nativo de C++ antes do JS rodar */}
+          {activeMobileImg && (
+            <source media="(max-width: 768px)" srcSet={activeMobileImg} />
+          )}
+          <img 
+            src={activeDesktopImg}
+            alt="PROJDET - Engenharia & Modelagem 3D Industrial"
+            className="hero-bleed-image"
+            fetchPriority="high"
+            decoding="async"
+          />
+        </picture>
       </div>
 
       {/* 2. GRADIENTE CINEMATOGRÁFICO SUAVE PARA CONTRASTE DOS TEXTOS NA BASE */}

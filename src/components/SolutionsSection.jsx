@@ -354,6 +354,8 @@ export default function SolutionsSection() {
                   <img
                     src={project.image_url}
                     alt={project.title}
+                    loading="lazy"
+                    decoding="async"
                     style={{
                       width: '100%',
                       height: '100%',
@@ -361,7 +363,6 @@ export default function SolutionsSection() {
                       transition: `transform 400ms ${CARD_TRANSITION_EASE}`
                     }}
                     className="card-project-img"
-                    loading="lazy"
                   />
 
                   {/* Badge da Categoria lida da coluna 'category' */}
@@ -710,6 +711,8 @@ export default function SolutionsSection() {
                       <img
                         src={allImages[activeImageIndex]}
                         alt={`${modalProject.title} foto ${activeImageIndex + 1}`}
+                        loading="lazy"
+                        decoding="async"
                         style={{
                           maxWidth: '100%',
                           maxHeight: '100%',
@@ -821,7 +824,13 @@ export default function SolutionsSection() {
                               transition: `all ${CAROUSEL_SLIDE_DURATION} ${CAROUSEL_SLIDE_EASE}`
                             }}
                           >
-                            <img src={imgUrl} alt={`Miniatura ${idx + 1}`} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                            <img 
+                              src={imgUrl} 
+                              alt={`Miniatura ${idx + 1}`} 
+                              loading="lazy"
+                              decoding="async"
+                              style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
+                            />
                           </button>
                         ))}
                       </div>
