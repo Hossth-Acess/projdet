@@ -844,6 +844,7 @@ export default function AdminDashboard({
           <AdminProductForm
             initialData={editingProject}
             editingId={editingId}
+            projects={projects}
             onSave={handleSaveProject}
             onDelete={handleDeleteProduct}
             onCancel={() => {

@@ -52,6 +52,7 @@ const inputBaseStyle = {
 export default function AdminProductForm({
   initialData = null,
   editingId = null,
+  projects = [], // Recebe a lista de projetos do Supabase para extração de categorias existentes
   onSave,
   onDelete,
   onCancel,
@@ -91,28 +92,41 @@ export default function AdminProductForm({
     gallery: initialData?.technical_specs?.gallery || []
   });
 
-  // Lista dinâmica de categorias salvas (persiste no LocalStorage)
+  // Categorias padrão da engenharia PROJDET
+  const DEFAULT_CATEGORIES = [
+    'Caldeiraria & Tanques',
+    'Estruturas Metálicas',
+    'Tubulações & PipeRacks',
+    'Usinagem & Dispositivos',
+    'Implementos Agrícolas',
+    'Tratamento de Superfícies'
+  ];
+
+  // Lista dinâmica de categorias: sincronizada com projetos do Supabase + LocalStorage + Padrões
   const [categoriesList, setCategoriesList] = useState(() => {
     try {
       const saved = localStorage.getItem('projdet_categories_list');
-      return saved ? JSON.parse(saved) : [
-        'Caldeiraria & Tanques',
-        'Estruturas Metálicas',
-        'Tubulações & PipeRacks',
-        'Usinagem & Dispositivos',
-        'Implementos Agrícolas',
-        'Tratamento de Superfícies'
-      ];
+      const localList = saved ? JSON.parse(saved) : [];
+      const dbCategories = (projects || []).map(p => p.category?.trim()).filter(Boolean);
+      return Array.from(new Set([...DEFAULT_CATEGORIES, ...dbCategories, ...localList])).sort();
     } catch (e) {
-      return ['Caldeiraria & Tanques', 'Estruturas Metálicas', 'Tubulações & PipeRacks', 'Usinagem & Dispositivos'];
+      return DEFAULT_CATEGORIES;
     }
   });
+
+  // Atualiza os badges se a lista de projetos do Supabase mudar ou for carregada
+  useEffect(() => {
+    if (projects && projects.length > 0) {
+      const dbCategories = projects.map(p => p.category?.trim()).filter(Boolean);
+      setCategoriesList(prev => Array.from(new Set([...prev, ...dbCategories])).sort());
+    }
+  }, [projects]);
 
   // --- 1. GESTÃO DE CATEGORIAS (ADICIONAR & APAGAR BADGES) ---
   const handleAddCategory = () => {
     const newCat = productForm.category.trim();
     if (!newCat || categoriesList.includes(newCat)) return;
-    const updated = [...categoriesList, newCat].sort();
+    const updated = Array.from(new Set([...categoriesList, newCat])).sort();
     setCategoriesList(updated);
     try { localStorage.setItem('projdet_categories_list', JSON.stringify(updated)); } catch (e) {}
   };
@@ -232,11 +246,20 @@ export default function AdminProductForm({
 
     try {
       setSaving(true);
+      const chosenCategory = productForm.category.trim() || 'Geral';
+
+      // Registra automaticamente a categoria nos badges do sistema para reuso imediato
+      if (chosenCategory && !categoriesList.includes(chosenCategory)) {
+        const updatedCats = Array.from(new Set([...categoriesList, chosenCategory])).sort();
+        setCategoriesList(updatedCats);
+        try { localStorage.setItem('projdet_categories_list', JSON.stringify(updatedCats)); } catch (e) {}
+      }
+
       // Passa explicitamente os parâmetros: formData, isEditing e editingId
       await onSave({
         title: productForm.title.trim(),
         slug: productForm.slug || productForm.title.toLowerCase().replace(/[^a-z0-9]/g, '-'),
-        category: productForm.category.trim() || 'Geral',
+        category: chosenCategory,
         description: productForm.description,
         image_url: productForm.image_url,
         youtube_video_id: productForm.youtube_video_id || null,
