@@ -1,0 +1,150 @@
+{
+  "empresa": {
+    "nome": "PROJDET - Projetos e Detalhamentos",
+    "localizacao": "Piracicaba - SP",
+    "telefone": "(19) 99597-7417",
+    "whatsapp_link": "https://wa.me/5519995977417",
+    "email": "contato@projdet.com.br",
+    "youtube_channel": "https://www.youtube.com/channel/UCUjOad67MkBfEp_I_NOs-UA",
+    "descricao_atual": "A PROJDET é uma empresa localizada na cidade de Piracicaba-SP especializada em projetos, detalhamentos e desenvolvimento de equipamentos para indústrias em geral. Atendemos diversos setores, agrícola, caldeiraria, usinagem, fundição, tubulações e estruturas metálicas."
+  },
+  "identidade_visual": {
+    "logo_png_original_sem_fundo": "https://assets.zyrosite.com/A3Qpj36gE9Synr3N/logotipo_semfundo-AE0pGZ93n0cawa2J.png",
+    "logo_og_original": "https://assets.zyrosite.com/A3Qpj36gE9Synr3N/logotipo-mp8nwXkBxNsDkoW7.png",
+    "logo_retina_2x": "https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=300,fit=crop/A3Qpj36gE9Synr3N/logotipo_semfundo-AE0pGZ93n0cawa2J.png",
+    "logo_header_1x": "https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=149,fit=crop/A3Qpj36gE9Synr3N/logotipo_semfundo-AE0pGZ93n0cawa2J.png",
+    "favicon_16": "https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=16,h=16,fit=crop,f=png/A3Qpj36gE9Synr3N/logotipo_semfundo-AE0pGZ93n0cawa2J.png",
+    "favicon_32": "https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=32,h=32,fit=crop,f=png/A3Qpj36gE9Synr3N/logotipo_semfundo-AE0pGZ93n0cawa2J.png",
+    "favicon_192": "https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=192,h=192,fit=crop,f=png/A3Qpj36gE9Synr3N/logotipo_semfundo-AE0pGZ93n0cawa2J.png",
+    "whatsapp_icon_1200": "https://assets.zyrosite.com/A3Qpj36gE9Synr3N/apngtreeawhite-whatsapp-icon-png_3562063-AE0p6Oo5l4FPwb8G.png"
+  },
+  "segmentos": [
+    "Estruturas Metálicas",
+    "Caldeiraria e Tanques",
+    "Tubulações Industriais",
+    "Usinagem de Precisão",
+    "Equipamentos para Agricultura",
+    "Fundição e Engrenagens"
+  ],
+  "videos_youtube": [
+    {
+      "titulo": "Misturador Industrial 3D",
+      "url": "https://www.youtube.com/watch?v=LPzLwzLczRQ",
+      "id": "LPzLwzLczRQ"
+    },
+    {
+      "titulo": "Rosca Transportadora",
+      "url": "https://www.youtube.com/watch?v=WohuvApxRm0",
+      "id": "WohuvApxRm0"
+    },
+    {
+      "titulo": "Agricultura - Racha Tronco",
+      "url": "https://www.youtube.com/watch?v=M6fvxg90ovs",
+      "id": "M6fvxg90ovs"
+    },
+    {
+      "titulo": "Tanque Vertical",
+      "url": "https://www.youtube.com/watch?v=jrOaeqoLk2s",
+      "id": "jrOaeqoLk2s"
+    },
+    {
+      "titulo": "Pórtico Rolante e Montagem",
+      "url": "https://www.youtube.com/watch?v=8XFi2hyrTYc",
+      "id": "8XFi2hyrTYc"
+    },
+    {
+      "titulo": "Tubulação 3D, PipeRack e Interligação",
+      "url": "https://www.youtube.com/watch?v=mP0p90ioY8o",
+      "id": "mP0p90ioY8o"
+    },
+    {
+      "titulo": "Tanque com Escada Caracol / Reservatório de Água",
+      "url": "https://www.youtube.com/watch?v=tDHopLIXOsg",
+      "id": "tDHopLIXOsg"
+    },
+    {
+      "titulo": "Subsolador Agrícola",
+      "url": "https://www.youtube.com/watch?v=4LYePY9uRM0",
+      "id": "4LYePY9uRM0"
+    },
+    {
+      "titulo": "Filtro Autolimpante",
+      "url": "https://www.youtube.com/watch?v=KMU1DEI7WBA",
+      "id": "KMU1DEI7WBA"
+    },
+    {
+      "titulo": "Caminhão Pipa",
+      "url": "https://www.youtube.com/watch?v=h_NOL9AO6E0",
+      "id": "h_NOL9AO6E0"
+    },
+    {
+      "titulo": "Caminhão Pipa Montado / Tanque 3D",
+      "url": "https://www.youtube.com/watch?v=nfUY-xWr65k",
+      "id": "nfUY-xWr65k"
+    },
+    {
+      "titulo": "Estrutura Metálica 3D / Plataforma de Interligação",
+      "url": "https://www.youtube.com/watch?v=RHx7lFdYJqA",
+      "id": "RHx7lFdYJqA"
+    },
+    {
+      "titulo": "Barracão / Galpão e Cobertura Metálica",
+      "url": "https://www.youtube.com/watch?v=lnnAsHQnIOo",
+      "id": "lnnAsHQnIOo"
+    },
+    {
+      "titulo": "Sistema de Decapagem e Tanques de Limpeza",
+      "url": "https://www.youtube.com/watch?v=S4aAIVi_a-U",
+      "id": "S4aAIVi_a-U"
+    }
+  ],
+  "imagens_portfolio": {
+    "estruturas_metalicas": [
+      "https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=375,h=269,fit=crop/A3Qpj36gE9Synr3N/estrutura-1-Y4L4kO9QxbC5Z3w4.png",
+      "https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=375,h=269,fit=crop/A3Qpj36gE9Synr3N/estrutura_02-mnl3GnbD6yibvL1e.png",
+      "https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=375,h=269,fit=crop/A3Qpj36gE9Synr3N/estrutura-2-A3QpGa9Xv7CB4R5x.png",
+      "https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=375,h=299,fit=crop/A3Qpj36gE9Synr3N/portico-montagem-AR0b2bVJQkSkbelg.png"
+    ],
+    "caldeiraria_tanques": [
+      "https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=375,h=269,fit=crop/A3Qpj36gE9Synr3N/caldeiraria_06-m6LvGP9noeTr0eDW.png",
+      "https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=375,h=269,fit=crop/A3Qpj36gE9Synr3N/caldeiraria_07-mP4p1No2oOfXnr6J.png",
+      "https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=375,h=245,fit=crop/A3Qpj36gE9Synr3N/caldeiraria-2-AGBGwOPNXgh2lzV7.png",
+      "https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=375,h=263,fit=crop/A3Qpj36gE9Synr3N/caldeiraria-4-AMqD4QkPeehn6Qya.png",
+      "https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=375,h=363,fit=crop/A3Qpj36gE9Synr3N/caldeiraria-5-Aq2GogRZyNuO6Qva.png",
+      "https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=375,h=410,fit=crop/A3Qpj36gE9Synr3N/tanque-AE04xJLgMJcXLzV5.png",
+      "https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=375,h=385,fit=crop/A3Qpj36gE9Synr3N/tanque-caracol-2-onED7gsGJDCETeMH.png",
+      "https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=375,h=237,fit=crop/A3Qpj36gE9Synr3N/tanque_pipa---3-AE074lv14kHEjn6a.png",
+      "https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=375,h=269,fit=crop/A3Qpj36gE9Synr3N/sistema-secapagem-A0xvVXLrZRUeyL4Q.png"
+    ],
+    "usinagem_equipamentos": [
+      "https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=375,h=255,fit=crop/A3Qpj36gE9Synr3N/rosca-1-mjE2wQjpGgfM02Dr.png",
+      "https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=375,h=145,fit=crop/A3Qpj36gE9Synr3N/rosca-3-m5KvG2O63jSzjp2q.png",
+      "https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=375,h=164,fit=crop/A3Qpj36gE9Synr3N/ponte-AVLJjzO6N5UKg1ZQ.png",
+      "https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=768,h=403,fit=crop/A3Qpj36gE9Synr3N/parafuso-m2W4Gl36jNu91EM4.png",
+      "https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=375,h=532,fit=crop/A3Qpj36gE9Synr3N/usinagem_01-mjE2wQ6ZXnsr4733.png",
+      "https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=375,h=226,fit=crop/A3Qpj36gE9Synr3N/usinagem-mv0P7KyrJaCL40qZ.png",
+      "https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=375,h=268,fit=crop/A3Qpj36gE9Synr3N/equipamentos_03-AwvrwjbxXGUL4kwv.png"
+    ],
+    "agricultura": [
+      "https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=375,h=269,fit=crop/A3Qpj36gE9Synr3N/agricultura-mp8nRaq5yEUwL0lV.png",
+      "https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=375,h=194,fit=crop/A3Qpj36gE9Synr3N/agricultura-2-m6LvBgGgZEigwP2n.png",
+      "https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=375,h=263,fit=crop/A3Qpj36gE9Synr3N/arado-1-ALp2oypLE8hbE72K.png",
+      "https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=375,h=259,fit=crop/A3Qpj36gE9Synr3N/arado-2-Yg24967vwGcqvKJD.png",
+      "https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=375,h=245,fit=crop/A3Qpj36gE9Synr3N/arado-3-mePgnqyxgGTKQMgo.png",
+      "https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=375,h=220,fit=crop/A3Qpj36gE9Synr3N/arado-5-mP43QrLvEahe5nDa.png"
+    ],
+    "tubulacoes": [
+      "https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=375,h=277,fit=crop/A3Qpj36gE9Synr3N/tubulaassaues_01-m2W4Glq0kBfezx4M.png",
+      "https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=768,h=561,fit=crop/A3Qpj36gE9Synr3N/tubulaaao-2-mnl49goljbFQNO3d.png",
+      "https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=375,h=383,fit=crop/A3Qpj36gE9Synr3N/tubulaaao-d95ZgQ2NO9hZV68q.png"
+    ],
+    "fundicao_engrenagens": [
+      "https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=375,h=260,fit=crop/A3Qpj36gE9Synr3N/engrenagem-2-dJoJyxLyy3sMLGvK.png",
+      "https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=375,h=253,fit=crop/A3Qpj36gE9Synr3N/engrenagem-ALpJKjMoELC97pnJ.png",
+      "https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=375,h=260,fit=crop/A3Qpj36gE9Synr3N/engrenagem-3-mp8nQBwg1Ztq8elg.png",
+      "https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=375,h=269,fit=crop/A3Qpj36gE9Synr3N/fundiassapso_03-mk3DwyZlq0FNzBpM.png",
+      "https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=375,h=269,fit=crop/A3Qpj36gE9Synr3N/fundiassapso_02-dOqbe7zX7XuQb7vK.png",
+      "https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=375,h=258,fit=crop/A3Qpj36gE9Synr3N/fundidas--1-mv0P7r14vQFZz206.png"
+    ]
+  }
+}

@@ -1,0 +1,200 @@
+/**
+ * CONSTANTES DE ANIMAÇÃO E TRANSIÇÃO (AJUSTES FINOS MANUAIS)
+ * -----------------------------------------------------------------------------
+ * Estas variáveis controlam todos os tempos e transições do projeto.
+ * Ajuste os valores abaixo para calibrar a fluidez visual conforme desejado:
+ */
+:root {
+  /* Durações de transições (em milissegundos) */
+  --motion-duration-fast: 160ms;       /* Hover de botões, tags e links */
+  --motion-duration-normal: 260ms;     /* Expansão de cards e abas */
+  --motion-duration-slow: 400ms;       /* Abertura de modais e gavetas */
+  --motion-duration-carousel: 600ms;   /* Deslizamento de mídias */
+
+  /* Curvas de aceleração (Easing curves mecânicas e suaves) */
+  --motion-ease-default: cubic-bezier(0.16, 1, 0.3, 1);    /* Suave com freio técnico */
+  --motion-ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);     /* Transições contínuas */
+  --motion-ease-sharp: cubic-bezier(0.25, 1, 0.5, 1);      /* Resposta rápida instantânea */
+}
+
+/**
+ * TOKENS DO DESIGN SYSTEM - RÉPLICA FIEL DO FORGEX (PRETO, BRANCO E CINZA)
+ * -----------------------------------------------------------------------------
+ * Estilo visual limpo, fundo predominantemente BRANCO, tipografia grafite nítida,
+ * paleta estritamente monocromática industrial e geometria refinada de cantos.
+ */
+:root {
+  /* Paleta Monocromática Limpa */
+  --color-bg-body: #FFFFFF;             /* Fundo do site 100% Branco Puro */
+  --color-bg-surface-gray: #F8FAFC;     /* Cinza claríssimo para faixas técnicas e métricas */
+  --color-bg-card-white: #FFFFFF;       /* Fundo dos cards brancos */
+
+  /* Bloco Hero Flutuante (Card Escuro do ForgeX) */
+  --color-hero-bg: #090E17;             /* Fundo preto/chumbo escuro profundo */
+
+  /* Tipografia Monocromática */
+  --color-text-title: #0F172A;          /* Preto grafite para títulos no branco */
+  --color-text-body: #475569;           /* Cinza para leitura de parágrafos */
+  --color-text-muted: #94A3B8;          /* Cinza claro para rótulos pequenos */
+  --color-text-white: #FFFFFF;          /* Branco puro para textos sobre superfícies escuras */
+
+  /* Linhas e Bordas Finas */
+  --color-border-clean: #E2E8F0;        /* Borda sutil nos blocos brancos */
+  --color-border-dark: rgba(255, 255, 255, 0.15); /* Borda no Hero escuro */
+
+  /* GEOMETRIA DE BORDAS (PADRÃO FORGEX) */
+  --radius-sm: 8px;                     /* Botões e tags */
+  --radius-card: 16px;                  /* Cards de serviços, projetos e métricas */
+  --radius-hero: 20px;                  /* Card flutuante principal */
+  --radius-full: 9999px;                /* Botões circulares de seta (↗) e badges */
+
+  /* Fontes Técnicas */
+  --font-heading: 'Outfit', sans-serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+
+  /* Espaçamentos */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+  --spacing-2xl: 48px;
+  --spacing-3xl: 64px;
+  --spacing-4xl: 96px;
+
+  /* Container Amplo de Tela Cheia */
+  --container-max-width: 1560px;
+}
+
+/**
+ * RESET CSS & ESTILOS GLOBAIS
+ */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 73px; /* Compensação milimétrica da altura do cabeçalho sticky no Desktop (72px + 1px borda) */
+  font-size: 16px;
+  background-color: var(--color-bg-body);
+  color: var(--color-text-title);
+  font-family: var(--font-body);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+@media (max-width: 859px) {
+  html {
+    scroll-padding-top: 65px; /* Compensação milimétrica da altura do cabeçalho sticky no Mobile (64px + 1px borda) */
+  }
+}
+
+body {
+  min-height: 100vh;
+  line-height: 1.6;
+  background-color: var(--color-bg-body);
+}
+
+/* Tipografia */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--color-text-title);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: color var(--motion-duration-fast) var(--motion-ease-default);
+}
+
+img, video {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Container Central Amplo */
+.container {
+  width: 100%;
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: clamp(12px, 1.5vw, 24px);
+  padding-right: clamp(12px, 1.5vw, 24px);
+}
+
+/* =============================================================================
+ * BOTÕES INDUSTRIAIS MONOCROMÁTICOS (PRETO, BRANCO E CINZA)
+ * ============================================================================= */
+.btn-industrial {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-sm);
+  padding: 12px 24px;
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 0.9rem;
+  letter-spacing: 0.02em;
+  border-radius: var(--radius-sm);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: transform var(--motion-duration-fast) var(--motion-ease-default),
+              background-color var(--motion-duration-fast) var(--motion-ease-default),
+              border-color var(--motion-duration-fast) var(--motion-ease-default);
+}
+
+/* Botão Branco Sólido de Alto Contraste */
+.btn-white {
+  background-color: #FFFFFF;
+  color: #0F172A !important;
+  border-color: #FFFFFF;
+}
+
+.btn-white:hover {
+  background-color: #F1F5F9;
+  border-color: #E2E8F0;
+  transform: translateY(-1px);
+}
+
+/* Botão Preto Sólido (Header & Chamadas) */
+.btn-black {
+  background-color: #0F172A;
+  color: #FFFFFF !important;
+  border-color: #0F172A;
+}
+
+.btn-black:hover {
+  background-color: #1E293B;
+  border-color: #1E293B;
+  transform: translateY(-1px);
+}
+
+/* Botão Borda Branca para Áreas Escuras (Hero) */
+.btn-hero-outline {
+  background-color: transparent;
+  color: #FFFFFF !important;
+  border-color: rgba(255, 255, 255, 0.45);
+}
+
+.btn-hero-outline:hover {
+  background-color: rgba(255, 255, 255, 0.12);
+  border-color: #FFFFFF;
+  transform: translateY(-1px);
+}
+
+/* Respeito à preferência de movimento reduzido (baseline-ui) */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
