@@ -1,0 +1,11 @@
+# ==============================================================================
+# PROJDET - ENGENHARIA & PROJETOS MECÂNICOS
+# Diretrizes para Robôs de Busca (Googlebot, Bingbot, etc.)
+# ==============================================================================
+
+User-agent: *
+Allow: /
+
+# Aponta o mapa do site público para indexação nos mecanismos de busca
+Sitemap: https://projdet.com.br/sitemap.xml
+

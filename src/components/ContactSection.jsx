@@ -32,6 +32,36 @@ const CONTACT_TRANSITION_EASE = 'cubic-bezier(0.16, 1, 0.3, 1)'; // Curva suave 
 const FULLSCREEN_MODAL_DURATION = '220ms'; // Velocidade de transição da tela cheia
 const CONTACT_BUTTON_HOVER_Y = '-2px'; // Deslocamento no hover dos botões de ação
 
+/**
+ * CONSTANTES DE LIMITES E SEGURANÇA (AJUSTES FINOS MANUAIS)
+ * -----------------------------------------------------------------------------
+ * Calibre os limites máximos de caracteres e palavras:
+ */
+const MAX_LENGTH_NAME = 100;          // Nome Completo (permite nomes compostos com espaços)
+const MAX_LENGTH_COMPANY = 120;       // Empresa / Razão Social
+const MAX_LENGTH_PROJECT_TYPE = 100;  // Segmento Industrial
+const MAX_WORDS_MESSAGE = 5000;       // Limite estrito de 5.000 palavras no Memorial Técnico
+const MAX_CHARS_MESSAGE = 40000;      // Teto de caracteres seguro (~40.000) para comportar 5.000 palavras
+
+/**
+ * FUNÇÃO DE HIGIENIZAÇÃO CONTRA INJEÇÃO DE SCRIPTS E TAGS HTML
+ * Neutraliza qualquer tentativa de script malicioso, tags <script>, <iframe> ou payloads XSS,
+ * PRESERVANDO integralmente espaços, quebras de linha (\n), acentuação e pontuação normal de texto.
+ */
+const sanitizeTechnicalText = (text) => {
+  if (!text || typeof text !== 'string') return '';
+  // 1. Remove qualquer estrutura de tags HTML/XML (<...>)
+  const strippedTags = text.replace(/<[^>]*>?/gm, '');
+  // 2. Remove apenas caracteres de injeção de código (<, >, {, }, $, `, \, ^), preservando espaços e pontuações normais
+  return strippedTags.replace(/[<>{}$`\\^]/g, '');
+};
+
+// Helper universal para contagem precisa de palavras em tempo real
+const countWords = (text) => {
+  if (!text || typeof text !== 'string') return 0;
+  return text.trim().split(/\s+/).filter(Boolean).length;
+};
+
 export default function ContactSection() {
   // Estado local do formulário para coleta de dados técnicos B2B
   const [formData, setFormData] = useState({
@@ -65,33 +95,77 @@ export default function ContactSection() {
     };
   }, [isFullscreenMessage]);
 
-  // Manipulador de alteração dos campos de entrada com máscara automática no telefone
+  // Manipulador de alteração com blindagem ativa por tipo de dado, bloqueio de scripts e preservação de espaços
   const handleChange = (e) => {
     const { name, value } = e.target;
+
+    // 1. WHATSAPP: Apenas dígitos numéricos com máscara dinâmica (99) 99999-9999
     if (name === 'phone') {
-      // Máscara dinâmica (99) 99999-9999
-      const digits = value.replace(/\D/g, '').slice(0, 11);
-      let formatted = digits;
-      if (digits.length > 2) formatted = `(${digits.slice(0, 2)}) ${digits.slice(2)}`;
-      if (digits.length > 7) formatted = `(${digits.slice(0, 2)}) ${digits.slice(2, 7)}-${digits.slice(7)}`;
+      const onlyDigits = value.replace(/\D/g, '').slice(0, 11);
+      let formatted = onlyDigits;
+      if (onlyDigits.length > 2) formatted = `(${onlyDigits.slice(0, 2)}) ${onlyDigits.slice(2)}`;
+      if (onlyDigits.length > 7) formatted = `(${onlyDigits.slice(0, 2)}) ${onlyDigits.slice(2, 7)}-${onlyDigits.slice(7)}`;
       setFormData((prev) => ({ ...prev, [name]: formatted }));
       return;
     }
+
+    // 2. NOME COMPLETO: Letras com acentos, pontuações de nome e ESPAÇOS LIVRES (sem scripts nem números)
+    if (name === 'name') {
+      const cleanName = value.replace(/[^a-zA-ZÀ-ÿ\s.'-]/g, '').slice(0, MAX_LENGTH_NAME);
+      setFormData((prev) => ({ ...prev, [name]: cleanName }));
+      return;
+    }
+
+    // 3. EMPRESA / INDÚSTRIA: Letras, números, caracteres comerciais (&, /, -, .) e ESPAÇOS LIVRES
+    if (name === 'company') {
+      const cleanCompany = value.replace(/[^a-zA-Z0-9À-ÿ\s.&/'\-]/g, '').slice(0, MAX_LENGTH_COMPANY);
+      setFormData((prev) => ({ ...prev, [name]: cleanCompany }));
+      return;
+    }
+
+    // 4. SEGMENTO INDUSTRIAL: Letras, números, acentos, hífens, barras e ESPAÇOS LIVRES
+    if (name === 'projectType') {
+      const cleanType = value.replace(/[^a-zA-Z0-9À-ÿ\s.,/'\-]/g, '').slice(0, MAX_LENGTH_PROJECT_TYPE);
+      setFormData((prev) => ({ ...prev, [name]: cleanType }));
+      return;
+    }
+
+    // 5. RESUMO TÉCNICO (Formulário e Tela Cheia): Até 5.000 palavras, preservando quebras de linha e espaços
+    if (name === 'message') {
+      const cleanText = sanitizeTechnicalText(value).slice(0, MAX_CHARS_MESSAGE);
+      const words = cleanText.trim().split(/\s+/).filter(Boolean);
+
+      // Trava estrita quando atinge 5.000 palavras caso esteja digitando além da cota
+      if (words.length > MAX_WORDS_MESSAGE) {
+        return;
+      }
+
+      setFormData((prev) => ({ ...prev, [name]: cleanText }));
+      return;
+    }
+
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  // Disparo do formulário direto para o WhatsApp oficial com mensagem técnica estruturada
+  // Disparo do formulário direto para o WhatsApp oficial com dupla higienização contra scripts
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    // Dupla higienização defensiva antes do envio
+    const safeName = sanitizeTechnicalText(formData.name).slice(0, MAX_LENGTH_NAME);
+    const safeCompany = sanitizeTechnicalText(formData.company).slice(0, MAX_LENGTH_COMPANY);
+    const safePhone = formData.phone.replace(/[^\d() -]/g, '').slice(0, 15);
+    const safeProjectType = sanitizeTechnicalText(formData.projectType).slice(0, MAX_LENGTH_PROJECT_TYPE);
+    const safeMessage = sanitizeTechnicalText(formData.message).slice(0, MAX_CHARS_MESSAGE);
 
     // Mensagem técnica pré-formatada para engenharia
     const technicalMessage =
       `*SOLICITAÇÃO DE ORÇAMENTO / VIABILIDADE TÉCNICA - PROJDET*\n\n` +
-      `*Nome:* ${formData.name}\n` +
-      `*Empresa:* ${formData.company || 'Não informada'}\n` +
-      `*WhatsApp:* ${formData.phone}\n` +
-      `*Segmento do Projeto:* ${formData.projectType || 'Geral'}\n` +
-      `*Descrição do Desafio:* ${formData.message}\n\n` +
+      `*Nome:* ${safeName}\n` +
+      `*Empresa:* ${safeCompany || 'Não informada'}\n` +
+      `*WhatsApp:* ${safePhone}\n` +
+      `*Segmento do Projeto:* ${safeProjectType || 'Geral'}\n` +
+      `*Descrição do Desafio:* ${safeMessage}\n\n` +
       `_Enviado via plataforma institucional PROJDET_`;
 
     const encodedMessage = encodeURIComponent(technicalMessage);
@@ -418,6 +492,7 @@ export default function ContactSection() {
                           name="name"
                           type="text"
                           required
+                          maxLength={MAX_LENGTH_NAME}
                           value={formData.name}
                           onChange={handleChange}
                           placeholder="Ex: Carlos Silva"
@@ -436,6 +511,7 @@ export default function ContactSection() {
                           id="company"
                           name="company"
                           type="text"
+                          maxLength={MAX_LENGTH_COMPANY}
                           value={formData.company}
                           onChange={handleChange}
                           placeholder="Ex: Usina ou Metalúrgica"
@@ -458,6 +534,7 @@ export default function ContactSection() {
                           name="phone"
                           type="tel"
                           required
+                          maxLength={15}
                           value={formData.phone}
                           onChange={handleChange}
                           placeholder="(19) 99999-9999"
@@ -476,6 +553,7 @@ export default function ContactSection() {
                           id="projectType"
                           name="projectType"
                           type="text"
+                          maxLength={MAX_LENGTH_PROJECT_TYPE}
                           value={formData.projectType}
                           onChange={handleChange}
                           placeholder="Ex: Sucroalcooleiro, Caldeiraria, etc."
@@ -525,6 +603,7 @@ export default function ContactSection() {
                         name="message"
                         required
                         rows={4}
+                        maxLength={MAX_CHARS_MESSAGE}
                         value={formData.message}
                         onChange={handleChange}
                         placeholder="Ex: Precisamos de projeto de tanque com escada conforme NR-12 e memorial de cálculo..."
@@ -637,6 +716,7 @@ export default function ContactSection() {
                 autoFocus
                 value={formData.message}
                 name="message"
+                maxLength={MAX_CHARS_MESSAGE}
                 onChange={handleChange}
                 placeholder="Descreva detalhadamente o desafio técnico da sua indústria:&#10;&#10;• Tipo de equipamento ou estrutura (ex: Tanque, Moenda, Tubulação, Dispositivo)&#10;• Normas técnicas requeridas (ex: NR-12, ASME VIII, API 650, NBR 8800)&#10;• Materiais preferenciais (ex: Aço Carbono ASTM A36, Inox 304/316)&#10;• Prazos de fabricação e tolerâncias estimadas"
                 style={{
@@ -657,7 +737,7 @@ export default function ContactSection() {
               />
             </div>
 
-            {/* Rodapé com Contador de Caracteres e Botão de Conclusão */}
+            {/* Rodapé com Contador de Palavras (Até 5.000) e Botão de Conclusão */}
             <div style={{
               display: 'flex',
               justifyContent: 'space-between',
@@ -666,8 +746,10 @@ export default function ContactSection() {
               borderTop: '1px solid #1E293B',
               backgroundColor: '#05080E'
             }}>
-              <span style={{ fontSize: '0.78rem', color: '#64748B', fontFamily: 'monospace' }}>
-                {formData.message.length} caracteres • Pressione ESC para fechar
+              <span style={{ fontSize: '0.78rem', color: '#94A3B8', fontFamily: 'monospace' }}>
+                <strong style={{ color: countWords(formData.message) > 4800 ? '#F59E0B' : '#38BDF8' }}>
+                  {countWords(formData.message)}
+                </strong> / 5.000 palavras ({formData.message.length} caracteres) • Pressione ESC para fechar
               </span>
 
               <button

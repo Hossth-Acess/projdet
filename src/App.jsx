@@ -28,8 +28,8 @@ const AdminDashboard = lazy(() => import('./components/admin/AdminDashboard'));
 const SECRET_ADMIN_PATH = '/B4t8aBacktalk2-Plural-Applied-Slimy/Mashed0-Gyration-Overstay-Scrap-Multitude-proj';
 
 // Imagens padrão de fábrica da engenharia PROJDET
-const DEFAULT_HERO_IMAGE_DESKTOP = 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=2000&q=85';
-const DEFAULT_HERO_IMAGE_MOBILE = 'https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?auto=format&fit=crop&w=1080&q=85';
+const DEFAULT_HERO_IMAGE_DESKTOP = 'https://txfimdsadaasfgttvczz.supabase.co/storage/v1/object/public/project-images/hero-desktop-1793304150655.webp';
+const DEFAULT_HERO_IMAGE_MOBILE = 'https://txfimdsadaasfgttvczz.supabase.co/storage/v1/object/public/project-images/hero-mobile-1793304158990.webps';
 
 export default function App() {
   // Estado para controle do modal de políticas/LGPD acionado pelo rodapé ou banner
@@ -86,11 +86,11 @@ export default function App() {
           if (data && !error) {
             if (data.image_desktop) {
               setHeroImageDesktop(data.image_desktop);
-              try { localStorage.setItem('projdet_hero_image_desktop', data.image_desktop); } catch (e) {}
+              try { localStorage.setItem('projdet_hero_image_desktop', data.image_desktop); } catch (e) { }
             }
             if (data.image_mobile) {
               setHeroImageMobile(data.image_mobile);
-              try { localStorage.setItem('projdet_hero_image_mobile', data.image_mobile); } catch (e) {}
+              try { localStorage.setItem('projdet_hero_image_mobile', data.image_mobile); } catch (e) { }
             }
             if (data.video_desktop) {
               setHeroVideoDesktop(data.video_desktop);
@@ -125,9 +125,12 @@ export default function App() {
   // 3. Monitora se o usuário acessou pela URL secreta ou pelo atalho hash #admin
   useEffect(() => {
     const checkAdminRoute = () => {
-      const path = window.location.pathname;
-      const hash = window.location.hash;
-      if (path === SECRET_ADMIN_PATH || hash === '#admin') {
+      // Normaliza o caminho ignorando barras no final e diferenças de maiúsculas/minúsculas
+      const currentPath = (window.location.pathname || '').replace(/\/+$/, '').toLowerCase();
+      const targetPath = SECRET_ADMIN_PATH.replace(/\/+$/, '').toLowerCase();
+      const currentHash = (window.location.hash || '').toLowerCase();
+
+      if (currentPath === targetPath || currentHash === '#admin') {
         setIsAdminOpen(true);
       }
     };
@@ -140,6 +143,21 @@ export default function App() {
       window.removeEventListener('popstate', checkAdminRoute);
     };
   }, []);
+
+  // 4. Injeta dinamicamente a meta tag noindex, nofollow quando o painel administrativo estiver ativo
+  useEffect(() => {
+    let robotsMeta = document.querySelector('meta[name="robots"]');
+    if (isAdminOpen) {
+      if (!robotsMeta) {
+        robotsMeta = document.createElement('meta');
+        robotsMeta.name = 'robots';
+        document.head.appendChild(robotsMeta);
+      }
+      robotsMeta.content = 'noindex, nofollow';
+    } else if (robotsMeta) {
+      robotsMeta.content = 'index, follow';
+    }
+  }, [isAdminOpen]);
 
   return (
     <div style={{
@@ -154,11 +172,11 @@ export default function App() {
       {/* 2. Conteúdo Principal da Landing Page */}
       <main style={{ flex: 1 }}>
         {/* Seção 1: Início (Hero Full-Bleed de Alta Definição) */}
-        <HeroSection 
+        <HeroSection
           heroImageDesktop={heroImageDesktop}
           heroImageMobile={heroImageMobile}
-          heroVideoDesktop={heroVideoDesktop} 
-          heroVideoMobile={heroVideoMobile} 
+          heroVideoDesktop={heroVideoDesktop}
+          heroVideoMobile={heroVideoMobile}
         />
 
         {/* Seção 2: Quem Somos (3 Cards industriais e Faixa de Métricas) */}
@@ -172,8 +190,8 @@ export default function App() {
       </main>
 
       {/* 3. Rodapé Técnico Industrial com acionamento do Modal de Privacidade */}
-      <Footer 
-        onOpenPrivacy={() => setIsPrivacyOpen(true)} 
+      <Footer
+        onOpenPrivacy={() => setIsPrivacyOpen(true)}
       />
 
       {/* 4. Banner & Modal LGPD com persistência em LocalStorage */}

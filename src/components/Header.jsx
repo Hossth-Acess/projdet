@@ -46,7 +46,7 @@ export default function Header() {
   return (
     <header className="header-master-wrapper">
       <div className="container header-container-inner">
-        
+
         {/* LOGOTIPO OFICIAL DA PROJDET (COM ESCALA CALIBRADA PARA MOBILE) */}
         <a href="#inicio" className="header-brand-link">
           <img
@@ -74,7 +74,7 @@ export default function Header() {
 
         {/* BLOCO DE AÇÃO À DIREITA (DESKTOP & MOBILE ADAPTADOS) */}
         <div className="header-actions-group">
-          
+
           {/* Botão Desktop Completo */}
           <a
             href="#contato"
@@ -90,7 +90,6 @@ export default function Header() {
             className="btn-industrial btn-black mobile-cta-btn"
           >
             <span>Orçamento</span>
-            <ArrowUpRight size={13} />
           </a>
 
           {/* Botão Sanduíche Mobile com Touch Target de 42px */}
@@ -114,33 +113,33 @@ export default function Header() {
       {mobileOpen && (
         <div className="mobile-overlay-menu">
           <nav className="mobile-menu-nav">
-            <a 
-              href="#inicio" 
-              onClick={() => setMobileOpen(false)} 
+            <a
+              href="#inicio"
+              onClick={() => setMobileOpen(false)}
               className="mobile-menu-link"
             >
               <span>Início</span>
               <span className="mobile-link-indicator">01</span>
             </a>
-            <a 
-              href="#quem-somos" 
-              onClick={() => setMobileOpen(false)} 
+            <a
+              href="#quem-somos"
+              onClick={() => setMobileOpen(false)}
               className="mobile-menu-link"
             >
               <span>Quem Somos</span>
               <span className="mobile-link-indicator">02</span>
             </a>
-            <a 
-              href="#solucoes" 
-              onClick={() => setMobileOpen(false)} 
+            <a
+              href="#solucoes"
+              onClick={() => setMobileOpen(false)}
               className="mobile-menu-link"
             >
               <span>Soluções & Projetos</span>
               <span className="mobile-link-indicator">03</span>
             </a>
-            <a 
-              href="#contato" 
-              onClick={() => setMobileOpen(false)} 
+            <a
+              href="#contato"
+              onClick={() => setMobileOpen(false)}
               className="mobile-menu-link"
             >
               <span>Contato & Localização</span>
@@ -167,8 +166,8 @@ export default function Header() {
 
       {/* BACKDROP SEMITRANSPARENTE (Fecha o menu ao clicar fora) */}
       {mobileOpen && (
-        <div 
-          className="mobile-menu-backdrop" 
+        <div
+          className="mobile-menu-backdrop"
           onClick={() => setMobileOpen(false)}
           aria-hidden="true"
         />
